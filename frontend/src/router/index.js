@@ -9,39 +9,39 @@ const routes = [
     // meta: { login: true },
     component: () => import('../views/Home.vue') // set home as path '/'
   },
-  {
-    path: '/show/:id',
-    name: 'Book Ticket',
-    // meta: { login: true },
-    component: () => import('../views/show.vue')
-  },
-  {
-    path: '/AddShow/:id',
-    name: 'Ass Show',
-    // meta: { login: true },
-    component: () => import('../views/AddShow.vue')
-  },
+  // {
+  //   path: '/show/:id',
+  //   name: 'Book Ticket',
+  //   // meta: { login: true },
+  //   component: () => import('../views/show.vue')
+  // },
+  // {
+  //   path: '/AddShow/:id',
+  //   name: 'Ass Show',
+  //   // meta: { login: true },
+  //   component: () => import('../views/AddShow.vue')
+  // },
   {
     path: '/user/login',
     name: 'login',
     // meta: { guess: true },
     component: () => import('../views/Login.vue')
   },
+  // {
+  //   path: '/booking/:orderId',
+  //   name: 'Confirm Ticket',
+  //   // meta: { login: true },
+  //   component: () => import('../views/Booking.vue')
+  // },
+  // {
+  //   path: '/profile/:id',
+  //   name: 'My profile',
+  //   // meta: { login: true},
+  //   component: () => import('../views/Profile.vue')
+  // },
   {
-    path: '/booking/:orderId',
-    name: 'Confirm Ticket',
-    // meta: { login: true },
-    component: () => import('../views/Booking.vue')
-  },
-  {
-    path: '/profile/:id',
-    name: 'My profile',
-    // meta: { login: true},
-    component: () => import('../views/Profile.vue')
-  },
-  {
-    path: '/profile/myorder/:id',
-    name: 'My Order',
+    path: '/order',
+    name: 'Order',
     // meta: { login: true},
     component: () => import('../views/Order.vue')
   },
@@ -51,41 +51,47 @@ const routes = [
     // meta: { guess: true },
     component: () => import('../views/Signup.vue')
   },
+  // {
+  //   path: '/movies',
+  //   name: 'Movie',
+  //   // meta: { login: true},
+  //   component: () => import('../views/movie.vue')
+  // },
   {
-    path: '/movies',
-    name: 'Movie',
-    // meta: { login: true},
-    component: () => import('../views/movie.vue')
+    path: '/detail',
+    name: 'Detail',
+    // meta: {login: true},
+    component: () => import('../views/Detail.vue')
+  },
+  // {
+  //   path: '/add/movies',
+  //   name: 'Create Movies',
+  //   // meta: {login: true},
+  //   component: () => import('../views/AddMovies.vue')
+  // },
+  // {
+  //   path: '/add/movies/:id',
+  //   name: 'Edit Movies',
+  //   // meta: {login: true},
+  //   component: () => import('../views/UpdateMovies.vue')
+  // },
+  // {
+  //   path: '/edit/show/:id',
+  //   name: 'Edit Show',
+  //   // meta: {login: true},
+  //   component: () => import('../views/UpdateShow.vue')
+  // },
+  {
+    path: '/payment',
+    name: 'payment',
+    // meta: {login: true},
+    component: () => import('../views/Payment.vue')
   },
   {
-    path: '/movies/detail/:id',
-    name: 'Movie Detail',
+    path: '/favorite',
+    name: 'favorite',
     // meta: {login: true},
-    component: () => import('../views/movieDetail.vue')
-  },
-  {
-    path: '/add/movies',
-    name: 'Create Movies',
-    // meta: {login: true},
-    component: () => import('../views/AddMovies.vue')
-  },
-  {
-    path: '/add/movies/:id',
-    name: 'Edit Movies',
-    // meta: {login: true},
-    component: () => import('../views/UpdateMovies.vue')
-  },
-  {
-    path: '/edit/show/:id',
-    name: 'Edit Show',
-    // meta: {login: true},
-    component: () => import('../views/UpdateShow.vue')
-  },
-  {
-    path: '/customer',
-    name: 'All Customer',
-    // meta: {login: true},
-    component: () => import('../views/AllCustomer.vue')
+    component: () => import('../views/favorite.vue')
   }
 ]
 
