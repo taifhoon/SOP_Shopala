@@ -41,7 +41,7 @@
           <div class="coloumn is-6">
             <p class=" has-text-justified">
               <span>฿</span>
-              39,500
+              500
             </p>
             <div class="componentorder has-text-left">
               <p class=" is-size-4 has-text-left">สี</p>
