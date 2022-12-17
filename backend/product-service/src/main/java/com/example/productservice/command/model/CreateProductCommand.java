@@ -1,4 +1,4 @@
-package com.example.productservice.command;
+package com.example.productservice.command.model;
 
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class CreateProductCommand {
 
     @TargetAggregateIdentifier
-    private final String productId;
+    private final String _id;
     private final String name;
     private final BigDecimal price;
     private final String color;

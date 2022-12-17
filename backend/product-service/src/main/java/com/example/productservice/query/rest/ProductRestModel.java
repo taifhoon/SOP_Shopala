@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 @Data
 public class ProductRestModel {
 
-    private String productId;
+    private String _id;
     private String name;
     private BigDecimal price;
     private String color;

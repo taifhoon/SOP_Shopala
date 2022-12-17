@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 
 @Data
 @Document("Product")
-public class Product implements Serializable {
+public class ProductEntity implements Serializable {
     @Id
-    private String productId;
+    private String _id;
     private String name;
     private BigDecimal price;
     private String color;

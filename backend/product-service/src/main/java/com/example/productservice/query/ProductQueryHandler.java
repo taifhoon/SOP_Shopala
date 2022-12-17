@@ -1,11 +1,10 @@
 package com.example.productservice.query;
 
-import com.example.productservice.core.ProductEntity;
+import com.example.productservice.pojo.ProductEntity;
 import com.example.productservice.core.data.ProductRepository;
 import com.example.productservice.query.rest.ProductRestModel;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

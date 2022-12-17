@@ -1,11 +1,9 @@
 package com.example.productservice.core.data;
 
-import com.example.productservice.core.ProductEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.productservice.pojo.ProductEntity;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface ProductRepository extends JpaRepository<ProductEntity, String> {
+public interface ProductRepository extends MongoRepository<ProductEntity, String> {
 
-    ProductEntity findByProductId(String productId);
-
-    ProductEntity findByProductIdOrName(String productId, String name);
+    public ProductEntity findBy_id(String _id);
 }
