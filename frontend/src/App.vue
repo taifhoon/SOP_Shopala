@@ -1,3 +1,4 @@
+<script src="https://kit.fontawesome.com/8ec5a2efe1.js" crossorigin="anonymous"></script>
 <template>
   <div :style="myStyle" id="wrapper">
     <nav class="navbar has-background-black" role="navigation" aria-label="main navigation">
@@ -22,20 +23,25 @@
           <input class="input" type="text" placeholder="Search anything that you wants . . . ">
         </div>
         <a class="navbar-item is-hoverable has-background-black">
+        <font-awesome-icon icon="far fa-star" />
           <img src="https://media.discordapp.net/attachments/1033283242121498625/1053246514908123247/search.png"
             width="30" height="28" class="has-background-black">
         </a>
 
 
         <div class="navbar-end">
-          <a class="navbar-item is-hoverable has-background-black">
+          <router-link class="navbar-item has-background-black" to="/favorite">
+          <a class="navbar-item  is-hoverable has-background-black">
             <img src="https://media.discordapp.net/attachments/1033283242121498625/1053243132524908576/love.png"
               width="30" height="28" class="has-background-black">
           </a>
+          </router-link>
+          <router-link class="navbar-item  has-background-black " to="/order">
           <a class="navbar-item is-hoverable has-background-black">
             <img src="https://media.discordapp.net/attachments/1033283242121498625/1053243132176760862/trolley-cart.png"
               width="30" height="28" class="has-background-black">
           </a>
+        </router-link>
           <div class="navbar-item">
             <div class="buttons">
               <router-link to="/user/signup" class="button is-dark">
@@ -72,7 +78,7 @@
 
 
     <div id="app">
-      <router-view :key="$route.fullPath" @auth-change="onAuthChange" :user="user" />
+      <router-view :key="$route.fullPath"  />
     </div>
   </div>
 </template>
