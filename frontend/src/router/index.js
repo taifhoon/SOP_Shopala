@@ -9,6 +9,12 @@ const routes = [
     // meta: { login: true },
     component: () => import('../views/Home.vue') // set home as path '/'
   },
+  {
+    path: '/homeseller',
+    name: 'HomeSeller',
+    // meta: { login: true },
+    component: () => import('../views/HomeSeller.vue') // set home as path '/'
+  },
   // {
   //   path: '/show/:id',
   //   name: 'Book Ticket',
@@ -63,18 +69,30 @@ const routes = [
     // meta: {login: true},
     component: () => import('../views/Detail.vue')
   },
-  // {
-  //   path: '/add/movies',
-  //   name: 'Create Movies',
-  //   // meta: {login: true},
-  //   component: () => import('../views/AddMovies.vue')
-  // },
-  // {
-  //   path: '/add/movies/:id',
-  //   name: 'Edit Movies',
-  //   // meta: {login: true},
-  //   component: () => import('../views/UpdateMovies.vue')
-  // },
+  {
+    path: '/sellerorder',
+    name: 'Seller Order',
+    // meta: {login: true},
+    component: () => import('../views/SellerOrder.vue')
+  },
+  {
+    path: '/allproduct',
+    name: 'All Product',
+    // meta: {login: true},
+    component: () => import('../views/AllProduct.vue')
+  },
+  {
+    path: '/addproduct',
+    name: 'Add Product',
+    // meta: {login: true},
+    component: () => import('../views/AddProduct.vue')
+  },
+  {
+    path: '/editproduct',
+    name: 'Edit Product',
+    // meta: {login: true},
+    component: () => import('../views/EditProduct.vue')
+  },
   // {
   //   path: '/edit/show/:id',
   //   name: 'Edit Show',

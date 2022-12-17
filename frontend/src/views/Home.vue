@@ -1,36 +1,42 @@
 <template>
-  <body class='homepage'>
-  <div class="container is-widescreen">
-    <section class="section">
-      <div class="content">
-        <h1 class="title has-text-left">สินค้าแนะนำ</h1>
-        <body>
-</body>
 
-        <div class="columns is-multiline">
-          <div class="column is-3" >
-            <div class="card" id="card1">
-              <div class="card-image pt-4">
-                <figure>
-                  <img src="https://twicpics.celine.com/product-prd/images/large/344893602C.38NO_1_WIN21.jpg?twic=v1/cover=1:1/resize-max=480" alt="">
-                </figure>
-              </div>
-              <div class="card-content">
-                <div class="text">CELINE MARGARET LOAFER WITH TRIOMPHE CHAIN IN POLISHED BULLBLACK</div>
-                <div class="content zonecon">
-                  <span>฿</span>
-                  39,500
+  <body class='homepage'>
+    <div class="container is-widescreen">
+      <section class="section">
+        <div class="content">
+          <h1 class="title has-text-left">สินค้าแนะนำ</h1>
+
+          <!-- ลองหน้าของ seller -->
+          <span>
+            <router-link class="has-text-dark" id='button' to="/homeseller">Seller</router-link>
+          </span>
+
+          <div class="columns is-multiline">
+            <div class="column is-3">
+              <div class="card" id="card1">
+                <div class="card-image pt-4">
+                  <figure>
+                    <img
+                      src="https://twicpics.celine.com/product-prd/images/large/344893602C.38NO_1_WIN21.jpg?twic=v1/cover=1:1/resize-max=480"
+                      alt="">
+                  </figure>
                 </div>
+                <div class="card-content">
+                  <div class="text">CELINE MARGARET LOAFER WITH TRIOMPHE CHAIN IN POLISHED BULLBLACK</div>
+                  <div class="content zonecon">
+                    <span>฿</span>
+                    39,500
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <router-link class="card-footer-item has-text-dark" id='button' :to="`/detail`">Details</router-link>
+                </footer>
               </div>
-              <footer class="card-footer">
-                <router-link class="card-footer-item has-text-dark" id='button' :to="`/detail`">Details</router-link>
-              </footer>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
   </body>
 </template>
 
@@ -86,16 +92,16 @@ export default {
   //     if (!this.user) return false
   //     return this.user.role == 'customer'
   //   }
-    
+
   // },
 };
 </script>
 <style>
- #card1{
-   width:100%;
-   background-color: rgb(213, 215, 218);
-   border-radius: 15px;
-   padding-top:20px;
-   
- }
+#card1 {
+  width: 100%;
+  background-color: rgb(213, 215, 218);
+  border-radius: 15px;
+  padding-top: 20px;
+
+}
 </style>
