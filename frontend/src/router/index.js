@@ -7,13 +7,13 @@ const routes = [
     path: '/',
     name: 'Home',
     // meta: { login: true },
-    component: () => import('../views/Home.vue') // set home as path '/'
+    component: () => import('../views/CustomerHome.vue') // set home as path '/'
   },
   {
-    path: '/homeseller',
+    path: '/seller/home',
     name: 'HomeSeller',
     // meta: { login: true },
-    component: () => import('../views/HomeSeller.vue') // set home as path '/'
+    component: () => import('../views/SellerHome.vue') // set home as path '/'
   },
   // {
   //   path: '/show/:id',
@@ -33,6 +33,12 @@ const routes = [
     // meta: { guess: true },
     component: () => import('../views/Login.vue')
   },
+  {
+    path: '/user/signup',
+    name: 'Sign up',
+    // meta: { guess: true },
+    component: () => import('../views/Signup.vue')
+  },
   // {
   //   path: '/booking/:orderId',
   //   name: 'Confirm Ticket',
@@ -46,16 +52,16 @@ const routes = [
   //   component: () => import('../views/Profile.vue')
   // },
   {
-    path: '/order',
+    path: '/customer/order',
     name: 'Order',
     // meta: { login: true},
-    component: () => import('../views/Order.vue')
+    component: () => import('../views/CustomerOrder.vue')
   },
   {
-    path: '/user/signup',
-    name: 'Sign up',
-    // meta: { guess: true },
-    component: () => import('../views/Signup.vue')
+    path: '/customer/myorder/',
+    name: 'Order',
+    // meta: { login: true},
+    component: () => import('../views/CustomerMyOrder.vue')
   },
   // {
   //   path: '/movies',
@@ -70,28 +76,34 @@ const routes = [
     component: () => import('../views/Detail.vue')
   },
   {
-    path: '/sellerorder',
+    path: '/seller/order',
     name: 'Seller Order',
     // meta: {login: true},
     component: () => import('../views/SellerOrder.vue')
   },
   {
+    path: '/seller/customerdeatil',
+    name: 'Customer Detail',
+    // meta: {login: true},
+    component: () => import('../views/SellerCustomerDetail.vue')
+  },
+  {
     path: '/allproduct',
     name: 'All Product',
     // meta: {login: true},
-    component: () => import('../views/AllProduct.vue')
+    component: () => import('../views/SellerAllProduct.vue')
   },
   {
     path: '/addproduct',
     name: 'Add Product',
     // meta: {login: true},
-    component: () => import('../views/AddProduct.vue')
+    component: () => import('../views/SellerAddProduct.vue')
   },
   {
     path: '/editproduct',
     name: 'Edit Product',
     // meta: {login: true},
-    component: () => import('../views/EditProduct.vue')
+    component: () => import('../views/SellerEditProduct.vue')
   },
   // {
   //   path: '/edit/show/:id',
@@ -103,13 +115,13 @@ const routes = [
     path: '/payment',
     name: 'payment',
     // meta: {login: true},
-    component: () => import('../views/Payment.vue')
+    component: () => import('../views/CustomerPayment.vue')
   },
   {
     path: '/favorite',
     name: 'favorite',
     // meta: {login: true},
-    component: () => import('../views/favorite.vue')
+    component: () => import('../views/CustomerFavorite.vue')
   }
 ]
 

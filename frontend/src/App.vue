@@ -36,7 +36,7 @@
               width="30" height="28" class="has-background-black">
           </a>
           </router-link>
-          <router-link class="navbar-item  has-background-black " to="/order">
+          <router-link class="navbar-item  has-background-black " to="/customer/order">
           <a class="navbar-item is-hoverable has-background-black">
             <img src="https://media.discordapp.net/attachments/1033283242121498625/1053243132176760862/trolley-cart.png"
               width="30" height="28" class="has-background-black">
