@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/product")
 public class ProductCommandController {
 
     private final CommandGateway commandGateway;
