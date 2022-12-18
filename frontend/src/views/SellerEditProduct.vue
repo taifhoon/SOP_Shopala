@@ -69,6 +69,12 @@
                             style="width: 200px; height: 40px;">บันทึก</button>
                         </router-link>
                       </div>
+                      <div class="column control">
+                        <router-link class="has-text-dark" id='button' to="/allproduct">
+                          <button class="button has-background-danger has-text-white"
+                            style="width: 200px; height: 40px;">ลบ</button>
+                        </router-link>
+                      </div>
                     </div>
                   </div>
                 </div>

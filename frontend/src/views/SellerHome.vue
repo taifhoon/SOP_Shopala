@@ -5,6 +5,7 @@
             <div class="menu column is-2 has-text-left box pl-5 pb-5 ml-6">
                 <ul class="menu-list">
                     <li class="columns">
+                    
                         <img src="https://www.flaticon.com/svg/vstatic/svg/7653/7653156.svg?token=exp=1671293890~hmac=b081aa7e3e4a467a11d47d13bf21176d"
                             width="20" alt="" />
                         <router-link class="card-footer-item has-text-dark" id='button' to="/seller/order">

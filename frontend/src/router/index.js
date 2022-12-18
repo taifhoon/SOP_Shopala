@@ -45,12 +45,12 @@ const routes = [
   //   // meta: { login: true },
   //   component: () => import('../views/Booking.vue')
   // },
-  // {
-  //   path: '/profile/:id',
-  //   name: 'My profile',
-  //   // meta: { login: true},
-  //   component: () => import('../views/Profile.vue')
-  // },
+  {
+    path: '/customer/profile',
+    name: 'My profile',
+    // meta: { login: true},
+    component: () => import('../views/CustomerProfile.vue')
+  },
   {
     path: '/customer/order',
     name: 'Order',
@@ -74,6 +74,12 @@ const routes = [
     name: 'Detail',
     // meta: {login: true},
     component: () => import('../views/Detail.vue')
+  },
+  {
+    path: '/seller/profile',
+    name: 'My profile',
+    // meta: { login: true},
+    component: () => import('../views/SellerProfile.vue')
   },
   {
     path: '/seller/order',

@@ -8,7 +8,15 @@
 
           <!-- ลองหน้าของ seller -->
           <span>
-            <router-link class="has-text-dark" id='button' to="/seller/home">Seller</router-link>
+            <router-link class="has-text-dark" id='button' to="/seller/home">Seller Home</router-link>
+          </span>
+          <br/>
+          <span>
+            <router-link class="has-text-dark" id='button' to="/customer/profile">Customer Profile</router-link>
+          </span>
+          <br/>
+          <span>
+            <router-link class="has-text-dark" id='button' to="/seller/profile">Seller Profile</router-link>
           </span>
 
           <div class="columns is-multiline">

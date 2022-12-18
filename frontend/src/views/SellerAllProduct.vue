@@ -1,6 +1,13 @@
 
 <template>
     <div class="container is-widescreen">
+        <router-link class="has-text-dark" id='button' to="/seller/home">
+            <div class="arrow">
+                <img class="imgarrow"
+                    src="https://www.flaticon.com/svg/vstatic/svg/3916/3916810.svg?token=exp=1671377228~hmac=1258a1e45339936c5da1bcba43dcf873"
+                    alt="">
+            </div>
+        </router-link>
         <section class="section" id="app">
             <div class="content">
                 <p class="title has-text-left mb-2">
@@ -68,3 +75,13 @@ export default {
     // components: { router }
 };
 </script>
+
+<style>
+.arrow {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -5%;
+    left: 0;
+}
+</style>

@@ -11,6 +11,7 @@
                     รายละเอียดคำสั่งซื้อ
                 </p>
                 <hr />
+                <div class="box">
                 <div class="row pt-5">
                     <div class="columns">
                         <div class="column is-2 has-text-right">ชื่อ :</div>
@@ -71,6 +72,7 @@
                         <div class="column has-text-left">4025 ฿</div>
                     </div>
                 </div>
+            </div>
                 <div class="row pt-5">
                     <div class="columns">
                       <div class="column control">
