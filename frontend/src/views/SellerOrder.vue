@@ -15,28 +15,24 @@
                     <div class="column">
                         <div class="row">
                             <div class="columns box">
-                                <div class="column is-4">สินค้า</div>
-                                <div class="column is-4">รายระเอียด</div>
-                                <div class="column is-2">จำนวน</div>
-                                <div class="column is-2">ราคารวม</div>
-                            </div>
-
-                            <div class="columns box">
-                                <div class="column is-4">
+                                <div class="column is-2 pt-5">Johnny</div>
+                                <div class="column is-2 pt-5">22/10/2022</div>
+                                <div class="column box is-4">
                                     <div class="row">
-                                        <div class="columns is-align-items-center">
-                                            <div class="column is-1"><input type="checkbox" /></div>
-                                            <div class="column "><img
-                                                    src="https://twicpics.celine.com/product-prd/images/large/344893602C.38NO_1_WIN21.jpg?twic=v1/cover=1:1/resize-max=480"
-                                                    alt="" />
-                                            </div>
-                                        </div>
+                                        <div class="column">CELINE MARGARET LOAFER WITH TRIOMPHE CHAIN IN
+                                            POLISHED
+                                            BULLBLACK </div>
+                                        <hr />
+                                        <div class="column">DIOR ADDICT LIP GLOW</div>
                                     </div>
                                 </div>
-                                <div class="column is-4">CELINE MARGARET LOAFER WITH TRIOMPHE CHAIN IN POLISHED
-                                    BULLBLACK</div>
-                                <div class="column is-2">2</div>
-                                <div class="column is-2">4,000</div>
+                                <div class="column is-2 pt-5">รวม 4,000 ฿</div>
+                                <div class="column is-2">
+                                    <router-link class="has-text-dark" id='button' to="/seller/customerdeatil">
+                                        <button class="button has-background-black has-text-white"
+                                            style="width: 150px; height: 40px;">รายละเอียด</button>
+                                    </router-link>
+                                </div>
                             </div>
                         </div>
                     </div>
