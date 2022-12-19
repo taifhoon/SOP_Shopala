@@ -2,6 +2,38 @@
 
     <body class='homepage'>
         <div class="columns">
+            <div class="column is-4">  
+                <p class="title is-4 has-text-left ml-6">Welcome Back, Louis!</p>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-10 is-offset-1">
+                <div class="box has-background-dark">
+                    <p class="has-text-left has-text-light">...หลุยส์ตรงนี้ควรเขียนอะไรดีหรอ ^.^</p> <br><br><br>
+                    <div class="columns">
+                        <div class="column is-2 is-offset-2">
+                           <div class="box is-clickable" @click="buylink()">
+                                <p class="title is-4 pb-2">+1</p>
+                                <p class="subtitle is-5">คำสั่งซื้อ</p>
+                           </div>
+                        </div>
+                        <div class="column is-2 is-offset-1">
+                            <div class="box is-clickable" @click="allproductlink()">
+                                <p class="title is-4 pb-2">+1</p>
+                                <p class="subtitle is-5">สิ้นค้าทั้งหมด</p>
+                            </div>
+                        </div>
+                        <div class="column is-2 is-offset-1">
+                            <div class="box is-clickable" @click="addproductlink()">
+                                <p class="title is-4 pb-2">+</p>
+                                <p class="subtitle is-5">เพิ่มสินค้าใหม่</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="columns">
             <div class="menu column is-2 has-text-left box pl-5 pb-5 ml-6">
                 <ul class="menu-list">
                     <li class="columns">
@@ -91,6 +123,18 @@ export default {
         window.scrollTo(0, 0)
         this.getMovie();
     },
+    methods: {
+        buylink () {
+            this.$router.push("/seller/order");
+        },
+        allproductlink () {
+            this.$router.push("/allproduct");
+        },
+        addproductlink () {
+            this.$router.push("/addproduct");
+        },
+    }
+    
     // methods: {
     //   getMovie() {
     //     axios

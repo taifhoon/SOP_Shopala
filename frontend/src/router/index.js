@@ -70,7 +70,7 @@ const routes = [
   //   component: () => import('../views/movie.vue')
   // },
   {
-    path: '/detail',
+    path: '/detail/:id',
     name: 'Detail',
     // meta: {login: true},
     component: () => import('../views/Detail.vue')
@@ -106,7 +106,7 @@ const routes = [
     component: () => import('../views/SellerAddProduct.vue')
   },
   {
-    path: '/editproduct',
+    path: '/editproduct/:id',
     name: 'Edit Product',
     // meta: {login: true},
     component: () => import('../views/SellerEditProduct.vue')
@@ -128,6 +128,18 @@ const routes = [
     name: 'favorite',
     // meta: {login: true},
     component: () => import('../views/CustomerFavorite.vue')
+  },
+  {
+    path: '/user/loginseller',
+    name: 'seller login',
+    // meta: { login: true},
+    component: () => import('../views/loginseller.vue')
+  },
+  {
+    path: '/user/signupseller',
+    name: 'seller signup',
+    // meta: { login: true},
+    component: () => import('../views/signupseller.vue')
   }
 ]
 

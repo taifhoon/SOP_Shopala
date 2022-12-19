@@ -2,26 +2,19 @@
   <section class="hero is-white">
     <div class="hero-body">
       <div class="container">
+        <p class="title ">Sign-Up Customer</p>
         <div class="columns is-centered">
-          <div
-            class="
+          <div class="
               column
               is-5-tablet is-4-desktop is-3-widescreen
               box
               has-background-grey-light
-            "
-          >
+            ">
             <div class="field">
               <label for="" class="label">Email</label>
               <div class="control has-icons-left">
-                <input
-                  v-model="$v.email.$model"
-                  :class="{ 'is-danger': $v.email.$error }"
-                  type="email"
-                  placeholder="youremail@hotmail.com"
-                  class="input"
-                  required
-                />
+                <input v-model="$v.email.$model" :class="{ 'is-danger': $v.email.$error }" type="email"
+                  placeholder="youremail@hotmail.com" class="input" required />
                 <span class="icon is-small is-left">
                   <i class="fa fa-envelope"></i>
                 </span>
@@ -41,14 +34,8 @@
             <div class="field">
               <label for="" class="label">Password</label>
               <div class="control has-icons-left">
-                <input
-                  v-model="$v.password.$model"
-                  :class="{ 'is-danger': $v.email.$error }"
-                  type="password"
-                  placeholder="*******"
-                  class="input"
-                  required
-                />
+                <input v-model="$v.password.$model" :class="{ 'is-danger': $v.email.$error }" type="password"
+                  placeholder="*******" class="input" required />
                 <span class="icon is-small is-left">
                   <i class="fa fa-lock"></i>
                 </span>
@@ -68,14 +55,8 @@
             <div class="field">
               <label for="" class="label">confirm Password</label>
               <div class="control has-icons-left">
-                <input
-                  v-model="$v.confirm_password.$model"
-                  :class="{ 'is-danger': $v.confirm_password.$error }"
-                  type="password"
-                  placeholder="*******"
-                  class="input"
-                  required
-                />
+                <input v-model="$v.confirm_password.$model" :class="{ 'is-danger': $v.confirm_password.$error }"
+                  type="password" placeholder="*******" class="input" required />
                 <span class="icon is-small is-left">
                   <i class="fa fa-lock"></i>
                 </span>
@@ -89,14 +70,8 @@
             <div class="field">
               <label for="" class="label">Name</label>
               <div class="control has-icons-left">
-                <input
-                  v-model="$v.c_name.$model"
-                  :class="{ 'is-danger': $v.c_name.$error }"
-                  type="name"
-                  placeholder="Firstname  Lastname"
-                  class="input"
-                  required
-                />
+                <input v-model="$v.c_name.$model" :class="{ 'is-danger': $v.c_name.$error }" type="name"
+                  placeholder="Firstname  Lastname" class="input" required />
                 <span class="icon is-small is-left">
                   <i class="fa fa-envelope"></i>
                 </span>
@@ -113,14 +88,8 @@
             <div class="field">
               <label for="" class="label">Phonenumber</label>
               <div class="control has-icons-left">
-                <input
-                  v-model="$v.mobile.$model"
-                  :class="{ 'is-danger': $v.mobile.$error }"
-                  type="phonenumber"
-                  placeholder="xxx-xxx-xxxx"
-                  class="input"
-                  required
-                />
+                <input v-model="$v.mobile.$model" :class="{ 'is-danger': $v.mobile.$error }" type="phonenumber"
+                  placeholder="xxx-xxx-xxxx" class="input" required />
                 <span class="icon is-small is-left">
                   <i class="fa fa-lock"></i>
                 </span>
@@ -136,13 +105,16 @@
             </div>
             <div class="field">
               <button class="button has-background-black">
-                <strong class="has-text-white" @click="submit()"
-                  >Sign up</strong
-                >
+                <strong class="has-text-white" @click="submit()">Sign up</strong>
               </button>
             </div>
           </div>
         </div>
+        <p class="my-3">Already have an account? 
+            <router-link to="/user/login">
+              <a>Login</a>
+            </router-link>
+          </p>
       </div>
     </div>
   </section>
@@ -181,7 +153,7 @@ export default {
       c_name: "",
     };
   },
-  mounted() {},
+  mounted() { },
   computed: {},
   methods: {
     submit() {

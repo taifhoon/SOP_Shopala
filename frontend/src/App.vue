@@ -50,6 +50,11 @@
             </router-link>
             <div class="navbar-item" v-if="user == null">
               <div class="buttons">
+                <router-link to="/user/loginseller" class="button has-background-white-ter mr-6">
+                  <a>
+                    <strong class="has-text-black">Seller Center</strong>
+                  </a>
+                </router-link>
                 <router-link to="/user/signup" class="button is-dark">
                   <a>
                     <strong class="has-text-white">Sign up</strong>
@@ -126,7 +131,7 @@
 export default {
   data() {
     return {
-      user: false,
+      user: null,
     };
   },
   // mounted() {

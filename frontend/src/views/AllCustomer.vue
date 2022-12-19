@@ -4,18 +4,10 @@
       <p class="title has-text-white">ข้อมูลลูกค้า</p>
       <div class="columns is-multiline">
         <div class="column is-10">
-          <input
-            class="input is-danger"
-            type="text"
-            v-model="search"
-            placeholder="Customer Name, Movie Order"
-          />
+          <input class="input is-danger" type="text" v-model="search" placeholder="Customer Name, Movie Order" />
         </div>
         <div class="column is-2">
-          <button
-            @click="getCustomer()"
-            class="button px-3 is-danger is-fullwidth"
-          >
+          <button @click="getCustomer()" class="button px-3 is-danger is-fullwidth">
             <strong>Search</strong>
           </button>
         </div>
@@ -24,9 +16,7 @@
         <div class="field level-right">
           <div class="control"></div>
         </div>
-        <table
-          class="table is-bordered has-background-warning-dark has-text-white"
-        >
+        <table class="table is-bordered has-background-warning-dark has-text-white">
           <tr>
             <td>ไอดี</td>
             <td>อีเมลล์</td>
@@ -35,21 +25,14 @@
             <td>จำนวนรายการสั่งซื้อ</td>
             <td>ดูข้อมูล</td>
           </tr>
-          <tr
-            v-for="customer in customer"
-            :key="customer.cid"
-            class="has-background-warning-light has-text-black"
-          >
+          <tr v-for="customer in customer" :key="customer.cid" class="has-background-warning-light has-text-black">
             <td>{{ customer.cid }}</td>
             <td>{{ customer.email_id }}</td>
             <td>{{ customer.c_name }}</td>
             <td>{{ customer.phone_no }}</td>
             <td>{{ customer.order }}</td>
             <td>
-              <button
-                class="button is-success"
-                @click="(customerModal = true), getOrder(customer.cid)"
-              >
+              <button class="button is-success" @click="(customerModal = true), getOrder(customer.cid)">
                 รายละเอียด
               </button>
             </td>
@@ -70,45 +53,42 @@
                   </div>
                 </header>
                 <section class="modal-card-body modal-content-width">
-                    <p class="title">รายการคำสั่งซื้อทั้งหมด</p>
-                        <table>
-                            <tr>
-                                <td>รายการคำสั่งซื้อที่</td>
-                                <td>ที่นั่ง</td>
-                                <td>ราคารวม</td>
-                                <td>โรงหนัง</td>
-                                <td>ชื่อหนัง</td>
-                                <td>รอบฉายที่</td>
-                                <td>วันที่ฉาย</td>
-                                <td>เวลาเริ่ม</td>
-                            </tr>
-                            <tr v-for="order in orderDetail" :key="order.order_id">
-                                <td>{{order.order_id}}</td>
-                                <td>{{order.order_seats}}</td>
-                                <td>{{order.total_price}}</td>
-                                <td>{{order.tname}}</td>
-                                <td>{{order.m_name}}</td>
-                                <td>{{order.show_id}}</td>
-                                <td>{{order.show_date}}</td>
-                                <td>{{order.st_time}}</td>
-                            </tr>
-                            <tr v-if="orderDetail.length == 0">
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                        </table>
+                  <p class="title">รายการคำสั่งซื้อทั้งหมด</p>
+                  <table>
+                    <tr>
+                      <td>รายการคำสั่งซื้อที่</td>
+                      <td>ที่นั่ง</td>
+                      <td>ราคารวม</td>
+                      <td>โรงหนัง</td>
+                      <td>ชื่อหนัง</td>
+                      <td>รอบฉายที่</td>
+                      <td>วันที่ฉาย</td>
+                      <td>เวลาเริ่ม</td>
+                    </tr>
+                    <tr v-for="order in orderDetail" :key="order.order_id">
+                      <td>{{ order.order_id }}</td>
+                      <td>{{ order.order_seats }}</td>
+                      <td>{{ order.total_price }}</td>
+                      <td>{{ order.tname }}</td>
+                      <td>{{ order.m_name }}</td>
+                      <td>{{ order.show_id }}</td>
+                      <td>{{ order.show_date }}</td>
+                      <td>{{ order.st_time }}</td>
+                    </tr>
+                    <tr v-if="orderDetail.length == 0">
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                  </table>
                 </section>
                 <footer class="modal-card-foot">
-                  <button
-                    @click="customerModal = false"
-                    class="button is-success"
-                  >
+                  <button @click="customerModal = false" class="button is-success">
                     ออก
                   </button>
                 </footer>
@@ -131,7 +111,7 @@ export default {
       customerDetail: "",
       orderDetail: "",
       customerModal: false,
-      search: ""
+      search: "",
     };
   },
   mounted() {
@@ -141,8 +121,11 @@ export default {
   methods: {
     getCustomer() {
       axios
-        .get(`http://localhost:3000/customer/`, {          params: {
-            search: this.search}})
+        .get(`http://localhost:3000/customer/`, {
+          params: {
+            search: this.search
+          }
+        })
         .then((response) => {
           this.customer = response.data.customer;
         })
@@ -155,8 +138,8 @@ export default {
         .get(`http://localhost:3000/customer/detail/${id}`)
         .then((response) => {
           this.orderDetail = response.data.order;
-          for (var i=0; i<this.orderDetail.length; i++){
-              this.orderDetail[i].show_date = new Date(this.orderDetail[i].show_date).toDateString()
+          for (var i = 0; i < this.orderDetail.length; i++) {
+            this.orderDetail[i].show_date = new Date(this.orderDetail[i].show_date).toDateString()
           }
           this.customerDetail = response.data.customer[0];
 
@@ -165,8 +148,8 @@ export default {
           console.log(err);
         });
     },
-    image(file_path){
-        if (file_path) {
+    image(file_path) {
+      if (file_path) {
         return "http://localhost:3000/" + file_path;
       } else {
         return "https://bulma.io/images/placeholders/640x360.png";
