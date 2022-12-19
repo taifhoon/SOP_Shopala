@@ -1,16 +1,22 @@
 package com.example.productservice.command;
 
 import com.example.productservice.command.model.*;
+import com.example.productservice.pojo.ProductType;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/product")
 public class ProductCommandController {
 
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
     private final CommandGateway commandGateway;
 
     @Autowired
@@ -24,12 +30,8 @@ public class ProductCommandController {
         CreateProductCommand command = CreateProductCommand.builder()
                 ._id(UUID.randomUUID().toString())
                 .name(model.getName())
-                .color(model.getColor())
-                .size(model.getSize())
-                .price(model.getPrice())
-                .quantity(model.getQuantity())
+                .type(model.getType())
                 .build();
-
         String result;
         try {
             result = commandGateway.sendAndWait(command);

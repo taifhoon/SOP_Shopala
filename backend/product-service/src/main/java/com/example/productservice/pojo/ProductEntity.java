@@ -16,9 +16,3 @@ public class ProductEntity implements Serializable {
     private String name;
     private List<ProductType> type;
 }
-class ProductType{
-    private BigDecimal price;
-    private String color;
-    private String size;
-    private Integer quantity;
-}

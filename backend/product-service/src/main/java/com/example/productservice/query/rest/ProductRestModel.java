@@ -1,16 +1,18 @@
 package com.example.productservice.query.rest;
 
+import com.example.productservice.pojo.ProductType;
 import lombok.Data;
 
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 public class ProductRestModel {
 
-    private String _id;
-    private String name;
-    private BigDecimal price;
-    private String color;
-    private String size;
-    private Integer quantity;
+        private String _id;
+        private String name;
+        private List<ProductType> type;
+
 }
