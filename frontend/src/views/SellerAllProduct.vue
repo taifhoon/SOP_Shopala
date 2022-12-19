@@ -54,54 +54,13 @@
 </style>
 <script>
 // import router from '@/router';
-import axios from "@/plugins/axios";
+
+// import axios from "@/plugins/axios";
 export default {
     name: "app",
     props: ["user"],
     data() {
         return {
-            listProducts: [{
-                "_id": "a1bba32a-e382-48fc-b4d7-ee2931bac028",
-                "name": "iphone 9",
-                "photo": "hello",
-                "sellerId": "fffffffffffffffffffffff",
-                "detail": "ippp",
-                "type": [
-                    {
-                        "price": "32900",
-                        "color": "black",
-                        "size": "128GB",
-                        "quantity": 5
-                    },
-                    {
-                        "price": "39900",
-                        "color": "blue",
-                        "size": "128GB",
-                        "quantity": 3
-                    }
-                ]
-            },
-            {
-                "_id": "e8fbfb5b-990d-46e9-8832-9a4a78c2a616",
-                "name": "iphone XR",
-                "detail": "XR",
-                "photo": "hello",
-                "sellerId": "fffffffffffffffffffffff",
-                "type": [
-                    {
-                        "price": "41900",
-                        "color": "silver",
-                        "size": "256GB",
-                        "quantity": 9
-                    },
-                    {
-                        "price": "39900",
-                        "color": "gold",
-                        "size": "128GB",
-                        "quantity": 4
-                    }
-                ]
-            }]
             // customer: [],
             // order: [],
             // paid: [],
@@ -111,21 +70,6 @@ export default {
             // ticketModal: false,
         };
     },
-    mounted() {
-        this.getProducts()
-    },
-    methods: {
-        getProducts() {
-            axios
-                .get(`http://localhost:8001/getProducts`)
-                .then((res) => {
-                    this.listProducts = res.data
-                })
-                .catch((error) => {
-                    alert(error.response.data.message)
-                });
-        }
-    }
     // components: { router }
 };
 </script>

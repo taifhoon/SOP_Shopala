@@ -1,6 +1,8 @@
 package com.example.orderservice.command;
 
 import com.example.orderservice.command.model.CreateOrderCommand;
+import com.example.orderservice.command.model.DelOrderCommand;
+import com.example.orderservice.command.model.DelOrderRestModel;
 import com.example.orderservice.core.event.OrderCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -9,12 +11,14 @@ import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.BeanUtils;
 
+import java.util.List;
+
 @Aggregate
 public class OrderAggregate {
 
     @AggregateIdentifier
     private String _id;
-    private String productId;
+    private List<String> productId;
     private String customerId;
     private String paymentId;
 
@@ -33,5 +37,12 @@ public class OrderAggregate {
         this.productId = orderCreatedEvent.getProductId();
         this.customerId = orderCreatedEvent.getCustomerId();
         this.paymentId = orderCreatedEvent.getPaymentId();
+    }
+
+    @CommandHandler
+    public void deleteOrder(DelOrderCommand command){
+        DelOrderRestModel delOrderRestModel = new DelOrderRestModel();
+        BeanUtils.copyProperties(command, delOrderRestModel);
+        AggregateLifecycle.apply(delOrderRestModel);
     }
 }

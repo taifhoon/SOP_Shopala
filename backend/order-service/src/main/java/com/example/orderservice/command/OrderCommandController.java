@@ -2,6 +2,8 @@ package com.example.orderservice.command;
 
 import com.example.orderservice.command.model.CreateOrderCommand;
 import com.example.orderservice.command.model.CreateOrderRestModel;
+import com.example.orderservice.command.model.DelOrderCommand;
+import com.example.orderservice.command.model.DelOrderRestModel;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +35,21 @@ public class OrderCommandController {
         String result;
         try {
             result = commandGateway.sendAndWait(command);
+        } catch (Exception e) {
+            result = e.getLocalizedMessage();
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/deleteOrder", method = RequestMethod.DELETE)
+    public String deleteOrder(@RequestBody DelOrderRestModel model){
+        DelOrderCommand command = DelOrderCommand.builder()
+                ._id(model.get_id())
+                .build();
+        String result;
+        try {
+            commandGateway.sendAndWait(command);
+            result = "Delete Success\nOrder Id: " + command.get_id();
         } catch (Exception e) {
             result = e.getLocalizedMessage();
         }

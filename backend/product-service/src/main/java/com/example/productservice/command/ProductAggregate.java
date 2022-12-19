@@ -2,6 +2,7 @@ package com.example.productservice.command;
 
 import com.example.productservice.command.model.*;
 import com.example.productservice.core.event.ProductCreatedEvent;
+import com.example.productservice.pojo.ProductType;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -10,6 +11,7 @@ import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Aggregate
 public class ProductAggregate {
@@ -17,19 +19,16 @@ public class ProductAggregate {
     @AggregateIdentifier
     private String _id;
     private String name;
-    private BigDecimal price;
-    private String color;
-    private String size;
-    private Integer quantity;
+    private String detail;
+    private String photo;
+    private String sellerId;
+    private List<ProductType> type;
 
     public ProductAggregate(){
     }
 
     @CommandHandler
     public ProductAggregate(CreateProductCommand createProductCommand){
-        if(createProductCommand.getPrice().compareTo(BigDecimal.ZERO) <= 0){
-            throw new IllegalArgumentException("Price cannot be less than or equal to zero");
-        }
         if(createProductCommand.getName() == null || createProductCommand.getName().isBlank()){
             throw new IllegalArgumentException("Name cannot be empty");
         }
@@ -56,21 +55,20 @@ public class ProductAggregate {
     public void setProductCreatedEvent(ProductCreatedEvent productCreatedEvent){
         this._id = productCreatedEvent.get_id();
         this.name = productCreatedEvent.getName();
-        this.price = productCreatedEvent.getPrice();
-        this.color = productCreatedEvent.getColor();
-        this.size = productCreatedEvent.getSize();
-        this.quantity = productCreatedEvent.getQuantity();
+        this.detail = productCreatedEvent.getDetail();
+        this.type = productCreatedEvent.getType();
+        this.photo = productCreatedEvent.getPhoto();
+        this.sellerId = productCreatedEvent.getSellerId();
     }
 
     @EventSourcingHandler
     public void setUpdateProductRestModel(UpdateProductRestModel model){
         this._id = model.get_id();
         this.name = model.getName();
-        this.price = model.getPrice();
-        this.color = model.getColor();
-        this.size = model.getSize();
-        this.quantity = model.getQuantity();
+        this.detail = model.getDetail();
+        this.type = model.getType();
+        this.photo = model.getPhoto();
+        this.sellerId = model.getSellerId();
     }
-
 
 }
