@@ -57,12 +57,13 @@
 <script>
 // import router from '@/router';
 
-// import axios from "@/plugins/axios";
+import axios from "@/plugins/axios";
 export default {
     name: "app",
     props: ["user"],
     data() {
         return {
+            products:[]
             // customer: [],
             // order: [],
             // paid: [],
@@ -72,6 +73,22 @@ export default {
             // ticketModal: false,
         };
     },
+    mounted(){
+        this.getProducts()
+    },
+    methods:{
+        getProducts(){
+            axios
+            .get(`http://localhost:8001/getProducts`)
+            .then((res) => {
+                console.log(res)
+                this.products = res
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        }
+    }
     // components: { router }
 };
 </script>

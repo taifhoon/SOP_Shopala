@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.repository.Query;
 
 public interface ProductRepository extends MongoRepository<ProductEntity, String> {
 
-    @Query(value = "{ '_id' : ?0 }")
-    public ProductEntity findProductEntityBy_id(String _id);
+    @Query(value = "{ _id : '?0' }")
+    public ProductEntity findBy_id(String _id);
 }

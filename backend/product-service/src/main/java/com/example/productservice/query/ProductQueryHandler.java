@@ -30,4 +30,12 @@ public class ProductQueryHandler {
         }
         return productsRest;
     }
+
+    @QueryHandler
+    ProductRestModel findProductsById(FindProductByIdQuery query){
+        ProductRestModel productsRest = new ProductRestModel();
+        ProductEntity storedProducts = productRepository.findBy_id(query.get_id());
+        BeanUtils.copyProperties(storedProducts, productsRest);
+        return productsRest;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.customerservice;
 
+import com.example.customerservice.command.model.CreateCustomerRestModel;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,6 +13,6 @@ public class customerController {
 
     @PostMapping
     public String createCustomer(@RequestBody CreateCustomerRestModel cus){
-        return "Username: " + cus.getUsername() + "\nRole: " + cus.getRole();
+        return "Username: " + cus.getUsername();
     }
 }

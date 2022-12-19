@@ -2,8 +2,8 @@ package com.example.productservice.command;
 
 import com.example.productservice.command.model.*;
 import com.example.productservice.pojo.ProductType;
+import com.example.productservice.query.ProductQueryController;
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,12 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/product")
 public class ProductCommandController {
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
     private final CommandGateway commandGateway;
 
     @Autowired
@@ -30,8 +29,12 @@ public class ProductCommandController {
         CreateProductCommand command = CreateProductCommand.builder()
                 ._id(UUID.randomUUID().toString())
                 .name(model.getName())
+                .detail(model.getDetail())
+                .photo(model.getPhoto())
+                .sellerId(model.getSellerId())
                 .type(model.getType())
                 .build();
+        System.out.println("Test");
         String result;
         try {
             result = commandGateway.sendAndWait(command);
@@ -44,11 +47,11 @@ public class ProductCommandController {
     public String updateProduct(@RequestBody UpdateProductRestModel model){
         UpdateProductCommand command = UpdateProductCommand.builder()
                 ._id(model.get_id())
-                .color(model.getColor())
                 .name(model.getName())
-                .price(model.getPrice())
-                .quantity(model.getQuantity())
-                .size(model.getSize())
+                .detail(model.getDetail())
+                .photo(model.getPhoto())
+                .sellerId(model.getSellerId())
+                .type(model.getType())
                 .build();
         String result;
         try {

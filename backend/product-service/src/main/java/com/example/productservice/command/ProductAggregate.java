@@ -19,6 +19,9 @@ public class ProductAggregate {
     @AggregateIdentifier
     private String _id;
     private String name;
+    private String detail;
+    private String photo;
+    private String sellerId;
     private List<ProductType> type;
 
     public ProductAggregate(){
@@ -52,16 +55,20 @@ public class ProductAggregate {
     public void setProductCreatedEvent(ProductCreatedEvent productCreatedEvent){
         this._id = productCreatedEvent.get_id();
         this.name = productCreatedEvent.getName();
+        this.detail = productCreatedEvent.getDetail();
         this.type = productCreatedEvent.getType();
-
+        this.photo = productCreatedEvent.getPhoto();
+        this.sellerId = productCreatedEvent.getSellerId();
     }
 
     @EventSourcingHandler
     public void setUpdateProductRestModel(UpdateProductRestModel model){
         this._id = model.get_id();
         this.name = model.getName();
-
+        this.detail = model.getDetail();
+        this.type = model.getType();
+        this.photo = model.getPhoto();
+        this.sellerId = model.getSellerId();
     }
-
 
 }

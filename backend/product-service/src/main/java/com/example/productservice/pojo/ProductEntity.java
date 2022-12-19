@@ -14,5 +14,8 @@ public class ProductEntity implements Serializable {
     @Id
     private String _id;
     private String name;
+    private String detail;
+    private String photo;
+    private String sellerId;
     private List<ProductType> type;
 }

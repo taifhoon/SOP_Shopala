@@ -10,5 +10,8 @@ import java.util.List;
 public class CreateProductRestModel {
 
     private String name;
+    private String detail;
+    private String photo;
+    private String sellerId;
     private List<ProductType> type;
 }

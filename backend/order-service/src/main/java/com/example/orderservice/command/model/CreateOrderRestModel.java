@@ -2,9 +2,11 @@ package com.example.orderservice.command.model;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class CreateOrderRestModel {
-    private String productId;
+    private List<String> productId;
     private String customerId;
     private String paymentId;
 }
