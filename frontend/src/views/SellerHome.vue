@@ -15,6 +15,7 @@
                            <div class="box is-clickable" @click="buylink()">
                                 <p class="title is-4 pb-2">+1</p>
                                 <p class="subtitle is-5">คำสั่งซื้อ</p>
+
                            </div>
                         </div>
                         <div class="column is-2 is-offset-1">
@@ -175,6 +176,7 @@ export default {
 };
 </script>
 <style>
+
 #card1 {
     width: 100%;
     background-color: rgb(213, 215, 218);

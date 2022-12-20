@@ -19,14 +19,16 @@
           </a>
         </div>
         <div id="navbarBasicExample" class="navbar-menu">
-          <div class="search">
-            <input class="input" type="text" placeholder="Search anything that you wants . . . ">
+          <!-- <div class="search">
+            <input class="input" type="text" v-model="searchinput" placeholder="Search anything that you wants . . . ">
           </div>
-          <a class="navbar-item is-hoverable has-background-black">
-            <font-awesome-icon icon="far fa-star" />
-            <img src="https://media.discordapp.net/attachments/1033283242121498625/1053246514908123247/search.png"
-              width="30" height="28" class="has-background-black">
-          </a>
+          <router-link to="/" class="button is-black">
+            <a class="navbar-item is-hoverable has-background-black">
+              <font-awesome-icon icon="far fa-star" />
+              <img src="https://media.discordapp.net/attachments/1033283242121498625/1053246514908123247/search.png"
+                width="30" height="28" class="has-background-black">
+            </a>
+          </router-link> -->
           <div class="navbar-end">
             <router-link class="navbar-item has-background-black" to="/favorite" v-if="user">
               <a class="navbar-item  is-hoverable has-background-black">
@@ -43,8 +45,7 @@
             </router-link>
             <router-link class="navbar-item  has-background-black " to="/customer/myorder" v-if="user">
               <a class="navbar-item is-hoverable has-background-black">
-                <img
-                  src="https://cdn.discordapp.com/attachments/1033283242121498625/1054128439562616925/truck_1.png"
+                <img src="https://cdn.discordapp.com/attachments/1033283242121498625/1054128439562616925/truck_1.png"
                   width="33" height="33" class="has-background-black">
               </a>
             </router-link>
@@ -96,7 +97,7 @@
     <div v-else-if="user == false">
       <nav class="navbar has-background-black" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <router-link to="/" class="navbar-item has-background-black">
+          <router-link to="/seller/home" class="navbar-item has-background-black">
             <a class="navbar-item"
               href="https://shopee.co.th/m/free-shipping?af_siteid=an_15131260000&af_sub_siteid=883977554---Maru-&pid=affiliates&utm_campaign=-&utm_content=883977554---Maru-&utm_medium=affiliates&utm_source=an_15131260000">
               <img src="//onlearn.it.kmitl.ac.th/pluginfile.php/1/theme_remui/logomini/1643255847/itonlearn.png"
@@ -122,58 +123,66 @@
 
     <div id="app">
       <router-view :key="$route.fullPath" />
+      <!-- <router-view v-slot="{ Component, route }">
+        <component :is="Component" :key="route.path.search" />
+      </router-view> -->
     </div>
   </div>
 </template>
 
 <script>
 // import axios from '@/plugins/axios'
+// import customerhome from "./views/CustomerHome.vue";
 export default {
   data() {
     return {
       user: null,
+      // searchinput: customerhome.data().search = this.searchinput,
     };
   },
   // mounted() {
   //   this.onAuthChange();
   // },
-  // methods: {
-  //   getOrderAndTicket(id){
-  //     axios.get(`/order/ticket/${id}`)
-  //       .then((res) => {
-  //         this.order = res.data.order;
-  //         var getOrder = res.data.order
-  //         this.orderLength = getOrder.length
-  //       });
-  //   },
-  //   onAuthChange() {
-  //     const token = localStorage.getItem("token");
-  //     if (token) {
-  //       this.getUser();
-  //     }
-  //   },
-  //   getUser() {
-  //     axios.get("/user/me")
-  //       .then((res) => {
-  //         this.user = res.data;
-  //         this.getOrderAndTicket(this.user.cid)
-  //         console.log(this.user.role)
-  //       });
-  //   },
-  //   logout(){
-  //     this.user = null,
-  //     localStorage.removeItem("token");
-  //     this.$router.push({path: '/user/login'})
-  //   },
-  //   isAdmin(){
-  //     if (!this.user) return false
-  //     return this.user.role == 'admin'
-  //   },
-  //   isCusto(){
-  //     if (!this.user) return false
-  //     return this.user.role == 'customer'
-  //   }
-  // },
+  methods: {
+    // Search() {
+    //  customerhome.data().search = this.searchinput;
+    // }
+    // getOrderAndTicket(id){
+    //   axios.get(`/order/ticket/${id}`)
+    //     .then((res) => {
+    //       this.order = res.data.order;
+    //       var getOrder = res.data.order
+    //       this.orderLength = getOrder.length
+    //     });
+    // },
+    // onAuthChange() {
+    //   const token = localStorage.getItem("token");
+    //   if (token) {
+    //     this.getUser();
+    //   }
+    // },
+    // getUser() {
+    //   axios.get("/user/me")
+    //     .then((res) => {
+    //       this.user = res.data;
+    //       this.getOrderAndTicket(this.user.cid)
+    //       console.log(this.user.role)
+    //     });
+    // },
+    // logout(){
+    //   this.user = null,
+    //   localStorage.removeItem("token");
+    //   this.$router.push({path: '/user/login'})
+    // },
+    // isAdmin(){
+    //   if (!this.user) return false
+    //   return this.user.role == 'admin'
+    // },
+    // isCusto(){
+    //   if (!this.user) return false
+    //   return this.user.role == 'customer'
+    // }
+  },
 };
 </script>
 
