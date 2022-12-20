@@ -1,38 +1,74 @@
 package com.example.productservice.service;
 
-import com.example.productservice.command.model.CreateProductCommand;
-import com.example.productservice.core.data.ProductRepository;
-import com.example.productservice.core.event.ProductCreatedEvent;
-import com.example.productservice.pojo.ProductEntity;
-import org.axonframework.modelling.command.AggregateLifecycle;
-import org.springframework.beans.BeanUtils;
+import com.example.productservice.command.model.*;
+import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ProductService {
-    private final ProductRepository productRepository;
+    private final CommandGateway commandGateway;
 
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
-
-    public void CreateProduct(ProductEntity entity){
-        productRepository.save(entity);
+    @Autowired
+    public ProductService(CommandGateway commandGateway) {
+        this.commandGateway = commandGateway;
     }
 
 
-    public List<ProductEntity> showProduct() {return productRepository.findAll();}
-
-    public ProductEntity findByProductId(String id){
+    @RabbitListener(queues = "CreateProduct")
+    public String CreateProduct(CreateProductRestModel model){
+        CreateProductCommand command = CreateProductCommand.builder()
+                ._id(UUID.randomUUID().toString())
+                .name(model.getName())
+                .detail(model.getDetail())
+                .photo(model.getPhoto())
+                .sellerId(model.getSellerId())
+                .categoryId(model.getCategoryId())
+                .type(model.getType())
+                .build();
+        String result= "";
         try {
-            ProductEntity productEntity = productRepository.findBy_id(id);
-            return productEntity;
+            result = commandGateway.sendAndWait(command);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
+            result = e.getLocalizedMessage();
         }
+        return result;
+    }
+    @RabbitListener(queues = "UpdateProduct")
+    public String UpdateProduct(UpdateProductRestModel model) {
+        UpdateProductCommand command = UpdateProductCommand.builder()
+                ._id(model.get_id())
+                .name(model.getName())
+                .detail(model.getDetail())
+                .photo(model.getPhoto())
+                .sellerId(model.getSellerId())
+                .type(model.getType())
+                .build();
+        String result;
+        try {
+            commandGateway.sendAndWait(command);
+            result = "Update Success \nProduct Id: " + command.get_id() + "\nName: " + command.getName();
+        } catch (Exception e) {
+            result = e.getLocalizedMessage();
+        }
+        return result;
+    }
+    @RabbitListener(queues = "DeleteProduct")
+    public String DeleteProduct(DelProductRestModel model){
+        DelProductCommand command = DelProductCommand.builder()
+                ._id(model.get_id())
+                .build();
+        String result;
+        try {
+            commandGateway.sendAndWait(command);
+            result = "Delete Success \nProduct Id: " + command.get_id();
+        } catch (Exception e) {
+            result = e.getLocalizedMessage();
+        }
+        return result;
     }
 }

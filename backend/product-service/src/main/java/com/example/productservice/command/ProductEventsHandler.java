@@ -30,7 +30,6 @@ public class ProductEventsHandler {
     public void on(UpdateProductRestModel event){
         ProductEntity productEntity = new ProductEntity();
         BeanUtils.copyProperties(event, productEntity);
-
         productRepository.save(productEntity);
     }
     @EventHandler

@@ -13,7 +13,6 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/orders")
 public class OrderQueryController {
     @Autowired
     QueryGateway queryGateway;

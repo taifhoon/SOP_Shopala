@@ -22,6 +22,7 @@ public class ProductAggregate {
     private String detail;
     private String photo;
     private String sellerId;
+    private String categoryId;
     private List<ProductType> type;
 
     public ProductAggregate(){
@@ -59,6 +60,7 @@ public class ProductAggregate {
         this.type = productCreatedEvent.getType();
         this.photo = productCreatedEvent.getPhoto();
         this.sellerId = productCreatedEvent.getSellerId();
+        this.categoryId = productCreatedEvent.getCategoryId();
     }
 
     @EventSourcingHandler
@@ -69,6 +71,7 @@ public class ProductAggregate {
         this.type = model.getType();
         this.photo = model.getPhoto();
         this.sellerId = model.getSellerId();
+        this.categoryId = model.getCategoryId();
     }
 
 }

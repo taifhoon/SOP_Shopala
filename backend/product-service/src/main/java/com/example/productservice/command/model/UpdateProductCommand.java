@@ -18,5 +18,6 @@ public class UpdateProductCommand {
     private final String detail;
     private final String photo;
     private final String sellerId;
+    private final String categoryId;
     private final List<ProductType> type;
 }
