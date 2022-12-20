@@ -9,13 +9,14 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Data
-public class ProductRestModel {
+public class ProductRestModel implements Serializable{
 
         private String _id;
         private String name;
         private String detail;
         private String photo;
         private String sellerId;
+        private String categoryId;
         private List<ProductType> type;
 
 }

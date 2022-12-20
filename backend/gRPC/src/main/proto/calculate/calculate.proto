@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package calculate;
+
+option java_package = "com.proto.calculate";
+option java_multiple_files = true;
+
+message Calculating{
+  int32 quantity = 1;
+  double price = 2;
+}
+message CalculateRequest {
+  Calculating calculating = 1;
+}
+message CalculateResponse {
+  double result = 1;
+}
+service CalculateService {
+  // Unary
+  rpc Calculate(CalculateRequest) returns (CalculateResponse){};
+}

@@ -2,8 +2,10 @@ package com.example.customerservice.command.model;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class UpdateCustomerRestModel {
+public class UpdateCustomerRestModel implements Serializable {
     private String _id;
     private String username;
     private String password;
