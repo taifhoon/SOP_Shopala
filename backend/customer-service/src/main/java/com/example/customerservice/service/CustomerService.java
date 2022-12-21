@@ -79,4 +79,12 @@ public class CustomerService {
         }
         return result;
     }
+
+    @RabbitListener(queues = "GetCustomers")
+    public List<CustomerRestModel> getCustomers(){
+        FindCustomerQuery findCustomerQuery = new FindCustomerQuery();
+        List<CustomerRestModel> customers = queryGateway
+                .query(findCustomerQuery, ResponseTypes.multipleInstancesOf(CustomerRestModel.class)).join();
+        return customers;
+    }
 }

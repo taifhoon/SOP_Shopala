@@ -1,10 +1,16 @@
 package com.example.productservice.service;
 
 import com.example.productservice.command.model.*;
+import com.example.productservice.query.FindProductByIdQuery;
+import com.example.productservice.query.FindProductQuery;
+import com.example.productservice.query.rest.ProductRestModel;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.messaging.responsetypes.ResponseTypes;
+import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,6 +18,9 @@ import java.util.UUID;
 @Service
 public class ProductService {
     private final CommandGateway commandGateway;
+
+    @Autowired
+    private QueryGateway queryGateway;
 
     @Autowired
     public ProductService(CommandGateway commandGateway) {
@@ -30,7 +39,7 @@ public class ProductService {
                 .categoryId(model.getCategoryId())
                 .type(model.getType())
                 .build();
-        String result= "";
+        String result;
         try {
             result = commandGateway.sendAndWait(command);
         } catch (Exception e) {
@@ -70,5 +79,21 @@ public class ProductService {
             result = e.getLocalizedMessage();
         }
         return result;
+    }
+
+    @RabbitListener(queues = "GetProducts")
+    public List<ProductRestModel> getProducts(){
+        FindProductQuery findProductQuery = new FindProductQuery();
+        List<ProductRestModel> products = queryGateway
+                .query(findProductQuery, ResponseTypes.multipleInstancesOf(ProductRestModel.class)).join();
+        return products;
+    }
+
+    @RabbitListener(queues = "GetProductById")
+    public ProductRestModel getProductById(String id){
+        FindProductByIdQuery findProductByIdQuery = new FindProductByIdQuery(id);
+        ProductRestModel products = queryGateway
+                .query(findProductByIdQuery, ProductRestModel.class).join();
+        return products;
     }
 }
