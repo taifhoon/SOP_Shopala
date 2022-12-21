@@ -1,5 +1,6 @@
 package com.example.orderservice.command.model;
 
+import com.example.orderservice.pojo.OrderType;
 import lombok.Builder;
 import lombok.Data;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
@@ -15,4 +16,5 @@ public class CreateOrderCommand {
     private List<String> productId;
     private String customerId;
     private String paymentId;
+    private List<OrderType> type;
 }

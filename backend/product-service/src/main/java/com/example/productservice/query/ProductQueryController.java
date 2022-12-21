@@ -25,9 +25,8 @@ public class ProductQueryController {
         return (List<ProductRestModel>) rabbitTemplate.convertSendAndReceive("ProductDirectExchange", "get", "");
 
     }
-    @RequestMapping(value = "/getProductsById", method = RequestMethod.GET)
-    public ProductRestModel getProductById(@RequestBody String id){
-        return (ProductRestModel) rabbitTemplate.convertSendAndReceive("ProductDirectExchange", "getById", id);
-
-    }
+//    @RequestMapping(value = "/getProductsById/{id}", method = RequestMethod.GET)
+//    public ProductRestModel getProductById(@RequestParam String id){
+//        return (ProductRestModel) rabbitTemplate.convertSendAndReceive("ProductDirectExchange", "getById", id);
+//    }
 }

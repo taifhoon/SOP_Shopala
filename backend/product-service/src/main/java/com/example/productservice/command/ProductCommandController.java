@@ -28,7 +28,7 @@ public class ProductCommandController {
         return (String) rabbitTemplate.convertSendAndReceive("ProductDirectExchange", "update", model);
     }
 
-    @RequestMapping(value = "/deleteProduct", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteProduct", method = RequestMethod.POST)
     public String deleteProduct(@RequestBody DelProductRestModel model){
         return (String) rabbitTemplate.convertSendAndReceive("ProductDirectExchange", "delete", model);
     }

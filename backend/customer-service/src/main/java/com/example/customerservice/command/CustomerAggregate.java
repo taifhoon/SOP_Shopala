@@ -27,6 +27,7 @@ public class CustomerAggregate {
     private String name;
     private String email;
     private String address;
+    private List<String> favoriteProductId;
 
     @Autowired
     QueryGateway queryGateway;
@@ -55,6 +56,7 @@ public class CustomerAggregate {
         this.name = customerCreatedEvent.getName();
         this.email = customerCreatedEvent.getEmail();
         this.address = customerCreatedEvent.getAddress();
+        this.favoriteProductId = customerCreatedEvent.getFavoriteProductId();
     }
 
     @EventSourcingHandler
@@ -65,6 +67,7 @@ public class CustomerAggregate {
         this.name = model.getName();
         this.email = model.getEmail();
         this.address = model.getAddress();
+        this.favoriteProductId = model.getFavoriteProductId();
     }
 
 }

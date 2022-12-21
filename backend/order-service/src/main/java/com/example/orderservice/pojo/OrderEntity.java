@@ -15,4 +15,5 @@ public class OrderEntity implements Serializable {
     private List<String> productId;
     private String customerId;
     private String paymentId;
+    private List<OrderType> type;
 }

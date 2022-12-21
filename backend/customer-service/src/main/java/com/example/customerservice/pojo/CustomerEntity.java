@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Document("Customer")
@@ -16,4 +17,5 @@ public class CustomerEntity implements Serializable {
     private String name;
     private String email;
     private String address;
+    private List<String> favoriteProductId;
 }

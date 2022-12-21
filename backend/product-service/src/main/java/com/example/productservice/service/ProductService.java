@@ -56,6 +56,7 @@ public class ProductService {
                 .photo(model.getPhoto())
                 .sellerId(model.getSellerId())
                 .type(model.getType())
+                .categoryId(model.getCategoryId())
                 .build();
         String result;
         try {
@@ -89,11 +90,11 @@ public class ProductService {
         return products;
     }
 
-    @RabbitListener(queues = "GetProductById")
-    public ProductRestModel getProductById(String id){
-        FindProductByIdQuery findProductByIdQuery = new FindProductByIdQuery(id);
-        ProductRestModel products = queryGateway
-                .query(findProductByIdQuery, ProductRestModel.class).join();
-        return products;
-    }
+//    @RabbitListener(queues = "GetProductById")
+//    public ProductRestModel getProductById(String id){
+//        FindProductByIdQuery findProductByIdQuery = new FindProductByIdQuery(id);
+//        ProductRestModel products = queryGateway
+//                .query(findProductByIdQuery, ProductRestModel.class).join();
+//        return products;
+//    }
 }

@@ -13,6 +13,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +39,7 @@ public class CustomerService {
                 .name(model.getName())
                 .email(model.getEmail())
                 .address(model.getAddress())
+                .favoriteProductId(new ArrayList<>())
                 .build();
 
         FindCustomerQuery findCustomerQuery = new FindCustomerQuery();
