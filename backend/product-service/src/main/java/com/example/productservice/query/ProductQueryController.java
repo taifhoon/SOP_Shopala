@@ -4,6 +4,7 @@ import com.example.productservice.query.FindProductQuery;
 import com.example.productservice.query.rest.ProductRestModel;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,20 +15,18 @@ import java.util.List;
 public class ProductQueryController {
 
     @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    @Autowired
     QueryGateway queryGateway;
 
     @RequestMapping(value = "/getProducts", method = RequestMethod.GET)
     public List<ProductRestModel> getProducts(){
-        FindProductQuery findProductQuery = new FindProductQuery();
-        List<ProductRestModel> products = queryGateway
-                .query(findProductQuery, ResponseTypes.multipleInstancesOf(ProductRestModel.class)).join();
-        return products;
+        return (List<ProductRestModel>) rabbitTemplate.convertSendAndReceive("ProductDirectExchange", "get", "");
+
     }
-    @RequestMapping(value = "/getProductsById/{id}", method = RequestMethod.GET)
-    public ProductRestModel getProductById(@PathVariable String id){
-        FindProductByIdQuery findProductByIdQuery = new FindProductByIdQuery(id);
-        ProductRestModel products = queryGateway
-                .query(findProductByIdQuery, ProductRestModel.class).join();
-        return products;
-    }
+//    @RequestMapping(value = "/getProductsById/{id}", method = RequestMethod.GET)
+//    public ProductRestModel getProductById(@RequestParam String id){
+//        return (ProductRestModel) rabbitTemplate.convertSendAndReceive("ProductDirectExchange", "getById", id);
+//    }
 }

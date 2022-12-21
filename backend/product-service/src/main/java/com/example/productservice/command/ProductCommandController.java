@@ -1,18 +1,10 @@
 package com.example.productservice.command;
 
 import com.example.productservice.command.model.*;
-import com.example.productservice.pojo.ProductType;
-import com.example.productservice.query.ProductQueryController;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @CrossOrigin("*")
 @RestController
@@ -36,7 +28,7 @@ public class ProductCommandController {
         return (String) rabbitTemplate.convertSendAndReceive("ProductDirectExchange", "update", model);
     }
 
-    @RequestMapping(value = "/deleteProduct", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteProduct", method = RequestMethod.POST)
     public String deleteProduct(@RequestBody DelProductRestModel model){
         return (String) rabbitTemplate.convertSendAndReceive("ProductDirectExchange", "delete", model);
     }

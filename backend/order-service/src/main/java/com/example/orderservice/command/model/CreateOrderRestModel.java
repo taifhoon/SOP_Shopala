@@ -1,5 +1,6 @@
 package com.example.orderservice.command.model;
 
+import com.example.orderservice.pojo.OrderType;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,4 +11,5 @@ public class CreateOrderRestModel implements Serializable {
     private List<String> productId;
     private String customerId;
     private String paymentId;
+    private List<OrderType> type;
 }

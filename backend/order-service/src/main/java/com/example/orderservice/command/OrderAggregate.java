@@ -4,6 +4,7 @@ import com.example.orderservice.command.model.CreateOrderCommand;
 import com.example.orderservice.command.model.DelOrderCommand;
 import com.example.orderservice.command.model.DelOrderRestModel;
 import com.example.orderservice.core.event.OrderCreatedEvent;
+import com.example.orderservice.pojo.OrderType;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -21,6 +22,7 @@ public class OrderAggregate {
     private List<String> productId;
     private String customerId;
     private String paymentId;
+    private List<OrderType> type;
 
     public OrderAggregate(){}
 
@@ -37,6 +39,7 @@ public class OrderAggregate {
         this.productId = orderCreatedEvent.getProductId();
         this.customerId = orderCreatedEvent.getCustomerId();
         this.paymentId = orderCreatedEvent.getPaymentId();
+        this.type = orderCreatedEvent.getType();
     }
 
     @CommandHandler

@@ -31,7 +31,7 @@ public class OrderCommandController {
         return (String) rabbitTemplate.convertSendAndReceive("OrderDirectExchange", "create", model);
     }
 
-    @RequestMapping(value = "/deleteOrder", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteOrder", method = RequestMethod.POST)
     public String deleteOrder(@RequestBody DelOrderRestModel model){
         return (String) rabbitTemplate.convertSendAndReceive("OrderDirectExchange", "delete", model);
     }

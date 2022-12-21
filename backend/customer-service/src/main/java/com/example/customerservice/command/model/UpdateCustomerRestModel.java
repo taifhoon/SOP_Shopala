@@ -3,6 +3,7 @@ package com.example.customerservice.command.model;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 public class UpdateCustomerRestModel implements Serializable {
@@ -12,4 +13,5 @@ public class UpdateCustomerRestModel implements Serializable {
     private String name;
     private String email;
     private String address;
+    private List<String> favoriteProductId;
 }

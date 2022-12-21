@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Data;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
+import java.util.List;
+
 @Builder
 @Data
 public class UpdateCustomerCommand {
@@ -14,4 +16,5 @@ public class UpdateCustomerCommand {
     private String name;
     private String email;
     private String address;
+    private List<String> favoriteProductId;
 }

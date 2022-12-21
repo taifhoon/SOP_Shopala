@@ -1,5 +1,6 @@
 package com.example.orderservice.core.event;
 
+import com.example.orderservice.pojo.OrderType;
 import lombok.Data;
 
 import java.util.List;
@@ -10,4 +11,5 @@ public class OrderCreatedEvent {
     private List<String> productId;
     private String customerId;
     private String paymentId;
+    private List<OrderType> type;
 }
