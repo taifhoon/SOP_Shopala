@@ -18,7 +18,7 @@
                     <div class="columns">
                       <label class="label column is-3 has-text-right">รูปภาพ :</label>
                       <div class="control column is-align-content-start">
-                        <input multiple type="file" accept="image/png, image/jpeg, image/webp" @change="selectImages"
+                        <input multiple type="file" accept="image/png, image/jpeg, image/webp" 
                           style="width: 150px; height: 40px;" />
                       </div>
                     </div>
@@ -27,7 +27,7 @@
                     <div class="columns">
                       <label class="label column is-3 has-text-right">ชื่อสินค้า :</label>
                       <div class="column control">
-                        <input v-model="name" class="input" type="text" placeholder="movie name" />
+                        <input v-model="name" class="input" type="text" placeholder="Product name" />
                       </div>
                     </div>
                   </div>
@@ -35,7 +35,7 @@
                     <div class="columns">
                       <label class="label column is-3 has-text-right">รายละเอียดสินค้า :</label>
                       <div class="column control">
-                        <textarea v-model="detail" class="textarea" placeholder="Plot movie input"></textarea>
+                        <textarea v-model="detail" class="textarea" placeholder="Product detail"></textarea>
                       </div>
                     </div>
                   </div>
@@ -54,7 +54,7 @@
                       </div>
                       <div class="column is-3">
                         <label class="label has-text-center">ราคา</label>
-                        <input v-model="item.price" class="input" type="text" placeholder="price" />
+                        <input v-model="item.price" class="input" type="number" placeholder="price" />
                       </div>
                       <div class="column is-3">
                         <label class="label has-text-center">
@@ -70,7 +70,7 @@
                                 width="20" alt=""></div>
                           </a>
                         </label>
-                        <input v-model="item.quantity" class="input" type="text" placeholder="quantity" />
+                        <input v-model="item.quantity" class="input" type="number" placeholder="quantity" />
                       </div>
                     </div>
                   </div>
@@ -111,9 +111,9 @@ import axios from '@/plugins/axios'
 export default {
   data() {
     return {
-      movie: "",
-      name: "",
-      detail: "",
+      user:{_id:"1"},
+      name:"",
+      detail:"",
       myImage: "",
       listType: [{ color: '', size: '', price: 0, quantity: 0 }],
       num: 0,
@@ -124,20 +124,14 @@ export default {
     },
   methods: {
     createProduct(){
+      console.log("Create")
       this.listType.sort((a, b) => a.price - b.price);
-      axios.post('http://localhost:8001/product/createProduct', {
+      axios.post('http://localhost:8001/createProduct', {
             "name": this.name,
             "detail": this.detail,
-            "type":
-            // [
-              this.listType
-                    // {
-                    // "color":"silver",
-                    // "size":"256GB",
-                    // "price":41900,
-                    // "quantity":9
-                    // },
-                  // ]
+            "photo": "hello",
+            "sellerId": this.user._id,
+            "type": this.listType
           })
         .then((response) => {
           console.log(response);
@@ -151,10 +145,10 @@ export default {
     deleteType(index) {
       this.listType.splice(index, 1);
     },
-    selectImages(event) {
-      this.myImage = event.target.files;
-      console.log(this.myImage[0])
-    },
+    // selectImages(event) {
+    //   this.myImage = event.target.files;
+    //   console.log(this.myImage[0])
+    // },
     // submitMovie() {
     //   let formData = new FormData();
     //   formData.append("movie", this.movie);

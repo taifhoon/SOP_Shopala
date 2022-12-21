@@ -136,7 +136,7 @@
 export default {
   data() {
     return {
-      user: null,
+      user: true,
       // searchinput: customerhome.data().search = this.searchinput,
     };
   },

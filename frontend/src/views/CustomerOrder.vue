@@ -30,7 +30,7 @@
                 <div class="column is-4">
                   <div class="row">
                     <div class="columns is-align-items-center">
-                      <div class="column is-1"><input type="checkbox" /></div>
+                      <div class="column is-1"><input type="checkbox" v-model="selOrder" /></div>
                       <div class="column "><img
                           src="https://twicpics.celine.com/product-prd/images/large/344893602C.38NO_1_WIN21.jpg?twic=v1/cover=1:1/resize-max=480"
                           alt="" />
@@ -86,6 +86,7 @@ export default {
     props: ["user"],
     data() {
         return {
+          selOrder: [],
         // customer: [],
         // order: [],
         // paid: [],

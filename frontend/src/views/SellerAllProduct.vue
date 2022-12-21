@@ -39,9 +39,13 @@
                                     <h4>{{ item.name }}</h4>
                                 </div>
                                 <div class="text">{{ item.detail }}</div>
-                                <div class="content zonecon" v-if="item.type.length >= 1">
+                                
+                                <div class="content zonecon" v-if="item.type.length > 1">
                                     <span>฿</span>
                                     {{ item.type[0].price }} - {{ item.type[item.type.length - 1].price }}
+                                </div>
+                                <div class="content zonecon" v-else>
+                                    <span>฿ {{ item.type.price }}</span>
                                 </div>
                             </div>
                             <footer class="card-footer">
@@ -59,13 +63,14 @@
 <script>
 // import router from '@/router';
 
-// import axios from "@/plugins/axios";
+import axios from "@/plugins/axios";
 export default {
     name: "app",
     props: ["user"],
     data() {
         return {
             searchinput: "",
+            userid:"1",
             // customer: [],
             // order: [],
             // paid: [],
@@ -73,65 +78,27 @@ export default {
             // ticket: [],
             // cancleModal: false,
             // ticketModal: false,
-            listProducts: [{
-                "_id": "a1bba32a-e382-48fc-b4d7-ee2931bac028",
-                "name": "iphone 9",
-                "photo": "hello",
-                "sellerId": "fffffffffffffffffffffff",
-                "detail": "ippp",
-                "type": [
-                    {
-                        "price": "32900",
-                        "color": "black",
-                        "size": "128GB",
-                        "quantity": 5
-                    },
-                    {
-                        "price": "39900",
-                        "color": "blue",
-                        "size": "128GB",
-                        "quantity": 3
-                    }
-                ]
-            },
-            {
-                "_id": "e8fbfb5b-990d-46e9-8832-9a4a78c2a616",
-                "name": "iphone XR",
-                "detail": "XR",
-                "photo": "hello",
-                "sellerId": "fffffffffffffffffffffff",
-                "type": [
-                    {
-                        "price": "41900",
-                        "color": "silver",
-                        "size": "256GB",
-                        "quantity": 9
-                    },
-                    {
-                        "price": "55900",
-                        "color": "gold",
-                        "size": "128GB",
-                        "quantity": 4
-                    }
-                ]
-            }]
+            listProducts: []
         };
     },
     // components: { router }
     mounted() {
-        // this.getProducts()
+        this.getProducts()
     },
     methods: {
-        // getProducts() {
-        //     axios
-        //         .get(`http://localhost:8001/getProducts`)
-        //         .then((res) => {
-        //             this.listProducts = res.data
-        //         })
-        //         .catch((error) => {
-        //             alert(error.response.data.message)
-        //         });
-        // },
+        getProducts() {
+            axios
+                .get(`http://localhost:8001/getProducts`)
+                .then((res) => {
+                    this.listProducts = res.data.filter(item => {
+                        return item.sellerId == this.userid
+                    })
+                    console.log(this.listProducts)
+                })
+                .catch((error) => {
+                    alert(error.response.data.message)
+                });
+        },
         Search() {
             if (this.searchinput != "") {
                 this.listProducts = this.listProducts.filter((item) => item.name.toLowerCase().includes(this.searchinput.toLowerCase()));

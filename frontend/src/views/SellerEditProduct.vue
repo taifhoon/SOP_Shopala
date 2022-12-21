@@ -19,7 +19,7 @@
                     <div class="columns">
                       <label class="label column is-3 has-text-right">รูปภาพ :</label>
                       <div class="control column is-align-content-start">
-                        <input multiple type="file" accept="image/png, image/jpeg, image/webp" @change="selectImages"
+                        <input multiple type="file" accept="image/png, image/jpeg, image/webp" 
                           style="width: 150px; height: 40px;" />
                       </div>
                     </div>
@@ -28,7 +28,7 @@
                     <div class="columns">
                       <label class="label column is-3 has-text-right">ชื่อสินค้า :</label>
                       <div class="column control">
-                        <input v-model="listProducts.name" class="input" type="text" placeholder="movie name" />
+                        <input v-model="product.name" class="input" type="text" placeholder="movie name" />
                       </div>
                     </div>
                   </div>
@@ -36,11 +36,11 @@
                     <div class="columns">
                       <label class="label column is-3 has-text-right">รายละเอียดสินค้า :</label>
                       <div class="column control">
-                        <textarea v-model="listProducts.detail" class="textarea" placeholder="Plot movie input"></textarea>
+                        <textarea v-model="product.detail" class="textarea" placeholder="Plot movie input"></textarea>
                       </div>
                     </div>
                   </div>
-                  <div class="row" v-for="(item, index) in listProducts.type" :key="index">
+                  <div class="row" v-for="(item, index) in product.type" :key="index">
                     <div class="columns">
                       <div class="column is-3">
                         <label class="label has-text-center">สี</label>
@@ -80,14 +80,14 @@
                         </router-link>
                       </div>
                       <div class="column control">
-                        <router-link class="has-text-dark" id='button' to="/allproduct">
-                          <button class="button has-background-black has-text-white"
+                        <router-link class="has-text-dark" id='button' to="/seller/home">
+                          <button @click="updateProduct()" class="button has-background-black has-text-white" 
                             style="width: 200px; height: 40px;">บันทึก</button>
                         </router-link>
                       </div>
                       <div class="column control">
-                        <router-link class="has-text-dark" id='button' to="/allproduct">
-                          <button class="button has-background-danger has-text-white"
+                        <router-link class="has-text-dark" id='button' to="/seller/home">
+                          <button @click="deleteProduct()" class="button has-background-danger has-text-white"
                             style="width: 200px; height: 40px;">ลบ</button>
                         </router-link>
                       </div>
@@ -117,77 +117,79 @@ export default {
       director: "",
       actors: "",
       myImage: "",
-      listProducts:
+      product:
         {
-                "_id": "a1bba32a-e382-48fc-b4d7-ee2931bac028",
-                "name": "iphone 9",
-                "photo": "hello",
-                "sellerId": "fffffffffffffffffffffff",
-                "detail": "ippp",
-                "type": [
-                    {
-                        "price": "32900",
-                        "color": "black",
-                        "size": "128GB",
-                        "quantity": 5
-                    },
-                    {
-                        "price": "39900",
-                        "color": "blue",
-                        "size": "128GB",
-                        "quantity": 3
-                    }
-                ]
+                // "_id": "a1bba32a-e382-48fc-b4d7-ee2931bac028",
+                // "name": "iphone 9",
+                // "photo": "hello",
+                // "sellerId": "fffffffffffffffffffffff",
+                // "detail": "ippp",
+                // "type": [
+                //     {
+                //         "price": "32900",
+                //         "color": "black",
+                //         "size": "128GB",
+                //         "quantity": 5
+                //     },
+                //     {
+                //         "price": "39900",
+                //         "color": "blue",
+                //         "size": "128GB",
+                //         "quantity": 3
+                //     }
+                // ]
             }
     };
   },
   mounted() {
-    window.scrollTo(0, 0)
-    this.getMovie(this.$route.params.id)
-    this.getProducts(this.$route.params.id)
+    this.getProduct(this.$route.params.id)
   },
   methods: {
-    getMovie(id) {
-      axios.get(`http://localhost:3000/movies/detail/${id}`)
-        .then((response) => {
-          console.log(response.data.moviedetail)
-          this.movie = response.data.moviedetail[0].m_name
-          this.plot = response.data.moviedetail[0].plot
-          this.director = response.data.moviedetail[0].director
-          this.actors = response.data.moviedetail[0].actors
-        })
-    },
-    selectImages(event) {
-      this.myImage = event.target.files;
-      console.log(this.myImage[0])
-    },
-    submitMovie() {
-      let formData = new FormData();
-      formData.append("movie", this.movie);
-      formData.append("plot", this.plot);
-      formData.append("director", this.director);
-      formData.append("actors", this.actors);
-      formData.append("myImage", this.myImage[0]);
+    getProduct(id) {
       axios
-        .post(`http://localhost:3000/movies/edit/${this.$route.params.id}`, formData)
-        .then((response) => {
-          console.log(response.data)
-          this.$router.push({ path: "/movies" });
-        })
-        .catch((error) => {
-          this.error = error.message;
-        });
-    },
-    getProducts(id) {
-      axios
-        .get(`http://localhost:8001/products/getProductsById/${id}`)
+        .get(`http://localhost:8001/getProducts`)
         .then((res) => {
-          this.listProducts = res.data
+          this.product = res.data.filter(item => {return item._id == id})[0]
         })
         .catch((error) => {
           alert(error.response.data.message)
         });
+    },
+    updateProduct(){
+      this.product.type.sort((a, b) => a.price - b.price);
+      axios
+        .post(`http://localhost:8001/updateProduct`, {
+            "_id": this.product._id,
+            "name": this.product.name,
+            "detail": this.product.detail,
+            "photo": this.product.photo,
+            "sellerId": this.product.sellerId,
+            "type": this.product.type
+        })
+        .then((res) => {
+          console.log(res)
+          
+        })
+        .catch((error) => {
+          alert(error.response.data.message)
+        });
+    },
+    deleteProduct(){
+      axios
+        .post(`http://localhost:8001/deleteProduct`, {
+            "_id": this.product._id
+        })
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((error) => {
+          alert(error)
+        });
+    },
+    addType() {
+      this.listType.push({ color: '', size: '', price: 0, quantity: 0 })
     }
+
   },
 };
 </script>

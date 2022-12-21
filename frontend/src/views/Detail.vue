@@ -23,23 +23,26 @@
             <div class="coloumn is-6">
               <p class=" has-text-justified">
                 <span>฿</span>
-                {{ this.listProducts.type[0].price }}
+                {{ this.product.type[0].price }}
               </p>
               <div class=" has-text-left">
                 <div class=" componentorder is-size-4 has-text-left"> สี </div>
-                <button class="button is-dark colorbtn" v-for="(item, index) in this.listProducts.type" :key="index">{{ item.color }}</button>
+                <button class="button colorbtn" :class="[checkColorSelect(item) ? 'is-dark' : 'is-light']"
+                  v-for="(item, index) in this.type.color" :key="index" @click="selColor = item">{{ item }}</button>
               </div>
               <div class=" has-text-left">
                 <div class=" componentorder is-size-4 has-text-left"> ขนาด </div>
-                <button class="button is-dark colorbtn" v-for="(item, index) in this.listProducts.type" :key="index">{{ item.size }}</button>
+                <button class="button colorbtn" :class="[checkSizeSelect(item) ? 'is-dark' : 'is-light']"
+                  v-for="(item, index) in this.type.size" :key="index" @click="selSize = item">{{ item }}</button>
               </div>
               <div class="has-text-left">
-                <div class="componentorder is-size-4 has-text-left">จำนวน</div>
+                <div class="componentorder is-size-4 has-text-left">จำนวน <span class="is-size-6 has-text-grey"
+                    v-if="!(selColor == '' || selSize == '')">(ยอดคงเหลือ : {{ checkQuantity() }})</span></div>
                 <div class="columns">
                   <div class="column is-6">
-                    <button class="button is-grey-dark">-</button>
-                    <input class="countinput input  " type="tel" value="1">
-                    <button class="button is-grey-dark">+</button>
+                    <button class="button is-grey-dark" @click="minusfunc()">-</button>
+                    <input class="countinput input" v-model="numQuantity" type="number" value="1">
+                    <button class="button is-grey-dark" @click="plusfunc()">+</button>
                   </div>
                 </div>
               </div>
@@ -54,7 +57,7 @@
             </div>
             <div class="detail">
               <p class="textcolor is-size-4 has-text-left">รายละเอียดสินค้า</p>
-              <p class="has-text-left">{{ this.listProducts.detail }}</p>
+              <p class="has-text-left">{{ this.product.detail }}</p>
             </div>
           </div>
         </div>
@@ -74,12 +77,13 @@ export default {
     return {
       fav: false,
       selColor: "",
-
+      selSize: "",
+      numQuantity: "1",
       movie: [],
       show: [],
       editShow: false,
-
-      listProducts: {
+      type: { color: [], size: [] },
+      product: {
         "_id": "a1bba32a-e382-48fc-b4d7-ee2931bac028",
         "name": "iphone 9",
         "photo": "hello",
@@ -91,34 +95,70 @@ export default {
             "color": "black",
             "size": "128GB",
             "quantity": 5
-          },
-          {
+          }, {
             "price": "39900",
-            "color": "blue",
+            "color": "black",
             "size": "256GB",
             "quantity": 3
+          },
+          {
+            "price": "21900",
+            "color": "blue",
+            "size": "256GB",
+            "quantity": 7
+          },
+          {
+            "price": "41900",
+            "color": "blue",
+            "size": "1TB",
+            "quantity": 1
           }
         ]
       },
-     
     };
   },
   mounted() {
     window.scrollTo(0, 0)
     // this.getMovieDetail(this.$route.params.id);
 
-    this.getProducts(this.$route.params.id)
+    // this.getProducts(this.$route.params.id)
+    this.selectType()
   },
   methods: {
     getProducts(id) {
       axios
-        .get(`http://localhost:8001/products/getProductsById/${id}`)
+        .get(`http://localhost:8001/getProducts`)
         .then((res) => {
-          this.listProducts = res.data
+          this.product = res.data.filter(item => {
+            return item._id == id
+          })[0]
         })
         .catch((error) => {
           alert(error.response.data.message)
         });
+    },
+    selectType() {
+      this.product.type.forEach(item => {
+        if (this.type.color.indexOf(item.color) == -1) {
+          this.type.color.push(item.color)
+        }
+        if (this.type.size.indexOf(item.size) == -1) {
+          this.type.size.push(item.size)
+        }
+
+      });
+    },
+    checkQuantity() {
+      if (this.selColor == '' || this.selSize == '') {
+        return ""
+      }
+      return this.product.type.find(item => item.color == this.selColor && item.size == this.selSize).quantity
+    },
+    checkColorSelect(item) {
+      return this.selColor == item
+    },
+    checkSizeSelect(item) {
+      return this.selSize == item
     },
     // getMovieDetail(id) {
     //   axios
@@ -171,7 +211,19 @@ export default {
             alert(error.response.data.message)
           });
       }
+    },
+    plusfunc() {
+      console.log(this.numQuantity);
+      // this.numtest += 1;
+      parseInt(this.numQuantity++);
+    },
+    minusfunc() {
+      if (this.numQuantity > 1) {
+        parseInt(this.numQuantity--);
+      }
     }
+
+
   },
 };
 </script>
@@ -214,7 +266,8 @@ export default {
   margin-top: 4%;
   margin-bottom: 4%;
 }
-.countinput{
+
+.countinput {
   width: 25%;
   text-align: center;
 }

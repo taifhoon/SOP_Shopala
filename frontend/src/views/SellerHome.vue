@@ -20,7 +20,7 @@
                         </div>
                         <div class="column is-2 is-offset-1">
                             <div class="box is-clickable" @click="allproductlink()">
-                                <p class="title is-4 pb-2">+1</p>
+                                <p class="title is-4 pb-2">+ {{ listProducts.length }}</p>
                                 <p class="subtitle is-5">สิ้นค้าทั้งหมด</p>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <div class="columns">
+        <!-- <div class="columns">
             <div class="menu column is-2 has-text-left box pl-5 pb-5 ml-6">
                 <ul class="menu-list">
                     <li class="columns">
@@ -103,28 +103,38 @@
                 </div>
             </div>
             <div class="column is-1"></div>
-        </div>
+        </div> -->
     </body>
 </template>
   
 <script>
-// import axios from '@/plugins/axios'
+import axios from "@/plugins/axios";
 export default {
     name: "app",
     props: ['user'],
     data() {
         return {
+            listProducts: [],
             search: "",
-            movie: [],
-            order: "show_date",
-            theatre: "none",
         };
     },
     mounted() {
         window.scrollTo(0, 0)
-        this.getMovie();
+        // this.getMovie();
+        this.getProducts()
     },
     methods: {
+        getProducts() {
+            axios
+                .get(`http://localhost:8001/getProducts`)
+                .then((res) => {
+                    console.log(res)
+                    this.listProducts = res.data
+                })
+                .catch((error) => {
+                    alert(error.response.data.message)
+                });
+        },
         buylink () {
             this.$router.push("/seller/order");
         },
@@ -134,7 +144,7 @@ export default {
         addproductlink () {
             this.$router.push("/addproduct");
         },
-    }
+    },
     
     // methods: {
     //   getMovie() {
