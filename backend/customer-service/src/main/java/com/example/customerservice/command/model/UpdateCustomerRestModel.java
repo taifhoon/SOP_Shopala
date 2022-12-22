@@ -1,5 +1,6 @@
 package com.example.customerservice.command.model;
 
+import com.example.customerservice.pojo.Cart;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,4 +15,5 @@ public class UpdateCustomerRestModel implements Serializable {
     private String email;
     private String address;
     private List<String> favoriteProductId;
+    private List<Cart> cartList;
 }

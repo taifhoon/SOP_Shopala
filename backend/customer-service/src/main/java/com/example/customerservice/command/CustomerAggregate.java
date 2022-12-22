@@ -4,6 +4,7 @@ import com.example.customerservice.command.model.CreateCustomerCommand;
 import com.example.customerservice.command.model.UpdateCustomerCommand;
 import com.example.customerservice.command.model.UpdateCustomerRestModel;
 import com.example.customerservice.core.event.CustomerCreatedEvent;
+import com.example.customerservice.pojo.Cart;
 import com.example.customerservice.query.FindCustomerQuery;
 import com.example.customerservice.query.rest.CustomerRestModel;
 import org.axonframework.commandhandling.CommandHandler;
@@ -28,6 +29,7 @@ public class CustomerAggregate {
     private String email;
     private String address;
     private List<String> favoriteProductId;
+    private List<Cart> cartList;
 
     @Autowired
     QueryGateway queryGateway;
@@ -68,6 +70,7 @@ public class CustomerAggregate {
         this.email = model.getEmail();
         this.address = model.getAddress();
         this.favoriteProductId = model.getFavoriteProductId();
+        this.cartList = model.getCartList();
     }
 
 }

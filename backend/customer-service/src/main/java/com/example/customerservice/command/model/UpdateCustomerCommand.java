@@ -1,5 +1,6 @@
 package com.example.customerservice.command.model;
 
+import com.example.customerservice.pojo.Cart;
 import lombok.Builder;
 import lombok.Data;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
@@ -17,4 +18,5 @@ public class UpdateCustomerCommand {
     private String email;
     private String address;
     private List<String> favoriteProductId;
+    private List<Cart> cartList;
 }

@@ -13,6 +13,8 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,9 +34,10 @@ public class OrderService {
     public String CreateProduct(CreateOrderRestModel model){
         CreateOrderCommand command = CreateOrderCommand.builder()
                 ._id(UUID.randomUUID().toString())
-                .productId(model.getProductId())
                 .customerId(model.getCustomerId())
                 .paymentId(model.getPaymentId())
+                .type(model.getType())
+                .date(new Date())
                 .build();
         String result= "";
         try {

@@ -18,4 +18,5 @@ public class CustomerEntity implements Serializable {
     private String email;
     private String address;
     private List<String> favoriteProductId;
+    private List<Cart> cartList;
 }

@@ -1,5 +1,6 @@
 package com.example.customerservice.core.event;
 
+import com.example.customerservice.pojo.Cart;
 import lombok.Data;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public class CustomerCreatedEvent {
     private String email;
     private String address;
     private List<String> favoriteProductId;
+    private List<Cart> cartList;
 }
