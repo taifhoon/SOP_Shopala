@@ -30,6 +30,7 @@
             </a>
           </router-link> -->
           <div class="navbar-end">
+            
             <router-link class="navbar-item has-background-black" to="/favorite" v-if="user">
               <a class="navbar-item  is-hoverable has-background-black">
                 <img src="https://media.discordapp.net/attachments/1033283242121498625/1053243132524908576/love.png"
@@ -49,6 +50,11 @@
                   width="33" height="33" class="has-background-black">
               </a>
             </router-link>
+            <button class="button mt-2 ml-2" @click="logout()" v-if="user">
+                  <a>
+                    <strong class="has-text-black">Log out</strong>
+                  </a>
+            </button>
             <div class="navbar-item" v-if="user == null">
               <div class="buttons">
                 <router-link to="/user/loginseller" class="button has-background-white-ter mr-6">
@@ -72,7 +78,7 @@
               <div class="buttons">
                 <router-link to="/customer/profile" class="button is-black">
                   <a>
-                    <strong class="has-text-white">Johnny</strong>
+                    <strong class="has-text-white">{{customer.name}}</strong>
                   </a>
                 </router-link>
               </div>
@@ -107,7 +113,7 @@
         </div>
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-end">
-            <div class="navbar-item">
+            <div class="navbar-item"> 
               <div class="buttons">
                 <router-link to="/seller/profile" class="button is-black">
                   <a>
@@ -131,19 +137,57 @@
 </template>
 
 <script>
-// import axios from '@/plugins/axios'
+import axios from '@/plugins/axios'
 // import customerhome from "./views/CustomerHome.vue";
 export default {
   data() {
     return {
       user: true,
+      customerId:null,
+      sellerId:null,
+      customer:{}
       // searchinput: customerhome.data().search = this.searchinput,
     };
   },
-  // mounted() {
-  //   this.onAuthChange();
-  // },
+  mounted() {
+    this.getCustomers()
+  },
   methods: {
+    async getCustomers(){
+      this.sellerId = localStorage.getItem("sellerId")
+      this.customerId = localStorage.getItem("customerId")
+      await axios
+        .get(`http://localhost:8003/getCustomers`)
+        .then((res) => {
+          res.data.forEach(item => {
+            if(item._id == this.customerId){
+              this.customer = item
+            }
+          })
+        })
+        .catch((error) => {
+          alert(error.response.data.message)
+        });
+        this.checkUser()
+    },
+    checkUser(){
+      if (this.customerId == null && this.sellerId == null){
+        this.user = null
+      }
+      else if(this.customerId != null){
+        this.user = true
+      }
+      else if(this.sellerId != null){
+        this.user = false
+      }
+      
+    },
+    logout(){
+      localStorage.removeItem("customerId")
+      this.$router.push({ path: "/user/login" });
+      location.reload();
+    }
+    
     // Search() {
     //  customerhome.data().search = this.searchinput;
     // }

@@ -2,7 +2,7 @@
     <section class="hero is-white">
       <div class="hero-body">
         <div class="container">
-            <p class="title ">Sign-Up Customer</p>
+            <p class="title ">Sign-Up Seller</p>
           <div class="columns is-centered">
             <div class="
                 column
@@ -85,7 +85,7 @@
                   </p>
                 </template>
               </div>
-              <div class="field">
+              <!-- <div class="field">
                 <label for="" class="label">Phonenumber</label>
                 <div class="control has-icons-left">
                   <input v-model="$v.mobile.$model" :class="{ 'is-danger': $v.mobile.$error }" type="phonenumber"
@@ -102,7 +102,7 @@
                     Invalid Mobile Number
                   </p>
                 </template>
-              </div>
+              </div> -->
               <div class="field">
                 <button class="button has-background-black">
                   <strong class="has-text-white" @click="submit()">Sign up</strong>
@@ -157,30 +157,42 @@
     computed: {},
     methods: {
       submit() {
-        // Validate all fields
-        this.$v.$touch();
+        axios.post("http://localhost:8004/createSeller", {
+          "email": this.email,
+          "password": this.confirm_password,
+          "name": this.c_name
+        })
+      .then((res) => {
+          localStorage.setItem("sellerId", res.data);
+          console.log(res)
+        })
+        .catch((error) => {
+          alert(error.response.data.message)
+        });
+        // // Validate all fields
+        // this.$v.$touch();
   
-        // เช็คว่าในฟอร์มไม่มี error
-        if (!this.$v.$invalid) {
-          let data = {
-            password: this.password,
-            confirm_password: this.confirm_password,
-            email: this.email,
-            mobile: this.mobile,
-            c_name: this.c_name,
-          };
+        // // เช็คว่าในฟอร์มไม่มี error
+        // if (!this.$v.$invalid) {
+        //   let data = {
+        //     password: this.password,
+        //     confirm_password: this.confirm_password,
+        //     email: this.email,
+        //     mobile: this.mobile,
+        //     c_name: this.c_name,
+        //   };
   
-          axios
-            .post("http://localhost:3000/user/signup", data)
-            .then((res) => {
-              console.log(res);
-              alert("Sign up Success");
-              this.$router.push({ path: "/user/login" });
-            })
-            .catch((err) => {
-              alert(err.response.data.details.message);
-            });
-        }
+        //   axios
+        //     .post("http://localhost:3000/user/signup", data)
+        //     .then((res) => {
+        //       console.log(res);
+        //       alert("Sign up Success");
+        //       this.$router.push({ path: "/user/login" });
+        //     })
+        //     .catch((err) => {
+        //       alert(err.response.data.details.message);
+        //     });
+        // }
       },
     },
     validations: {

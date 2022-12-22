@@ -47,9 +47,6 @@
                 <p class="help is-danger" v-if="!$v.password.minLength">
                   The password must be at least 8 letters
                 </p>
-                <p class="help is-danger" v-if="!$v.password.complexPassword">
-                  The password is too easy
-                </p>
               </template>
             </div>
             <div class="field">
@@ -157,10 +154,8 @@ export default {
   computed: {},
   methods: {
     submit() {
-      // Validate all fields
-      this.$v.$touch();
 
-      // เช็คว่าในฟอร์มไม่มี error
+      this.$v.$touch();
       if (!this.$v.$invalid) {
         let data = {
           password: this.password,
@@ -169,17 +164,47 @@ export default {
           mobile: this.mobile,
           c_name: this.c_name,
         };
-
-        axios
-          .post("http://localhost:3000/user/signup", data)
-          .then((res) => {
-            console.log(res);
-            alert("Sign up Success");
+      
+      axios.post("http://localhost:8003/createCustomer", {
+        "email": data.email,
+        "password": data.password,
+        "name": data.c_name,
+        "tel": data.mobile
+      })
+      .then((res) => {
+          console.log(res.data)
+          if(res.data == "Create Account Complete"){
             this.$router.push({ path: "/user/login" });
-          })
-          .catch((err) => {
-            alert(err.response.data.details.message);
-          });
+          }
+          alert(res.data);
+
+        })
+        .catch((error) => {
+          alert(error.response.data.message)
+        });
+      // // Validate all fields
+      // this.$v.$touch();
+
+      // เช็คว่าในฟอร์มไม่มี error
+      // if (!this.$v.$invalid) {
+      //   let data = {
+      //     password: this.password,
+      //     confirm_password: this.confirm_password,
+      //     email: this.email,
+      //     mobile: this.mobile,
+      //     c_name: this.c_name,
+      //   };
+
+        // axios
+        //   .post("http://localhost:3000/user/signup", data)
+        //   .then((res) => {
+        //     console.log(res);
+        //     alert("Sign up Success");
+        //     this.$router.push({ path: "/user/login" });
+        //   })
+        //   .catch((err) => {
+        //     alert(err.response.data.details.message);
+        //   });
       }
     },
   },
@@ -195,7 +220,6 @@ export default {
     password: {
       required: required,
       minLength: minLength(8),
-      complex: complexPassword,
     },
     confirm_password: {
       sameAs: sameAs("password"),

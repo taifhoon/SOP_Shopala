@@ -16,7 +16,7 @@
         </div>
         <div class="content">
 
-          <h1 class="title has-text-left">สินค้าแนะนำ</h1>
+          <h1 class="title has-text-left">สินค้าทั้งหมด</h1>
           <h1 class="title has-text-left">{{ search }}</h1>
 
           <!-- ลองหน้าของ seller -->
@@ -38,7 +38,7 @@
                 <div class="card-image pt-4">
                   <figure>
                     <img
-                      src="https://twicpics.celine.com/product-prd/images/large/344893602C.38NO_1_WIN21.jpg?twic=v1/cover=1:1/resize-max=480"
+                      :src="item.photo"
                       alt="">
                   </figure>
                 </div>

@@ -19,7 +19,7 @@
                       <label class="label column is-3 has-text-right">รูปภาพ :</label>
                       <div class="control column is-align-content-start">
                         <input multiple type="file" accept="image/png, image/jpeg, image/webp" 
-                          style="width: 150px; height: 40px;" />
+                          style="width: 150px; height: 40px;" v-on:change="onFileChange"/>
                       </div>
                     </div>
                   </div>
@@ -117,6 +117,7 @@ export default {
       myImage: "",
       listType: [{ color: '', size: '', price: 0, quantity: 0 }],
       num: 0,
+      file: null,
     };
   },
   mounted(){
@@ -126,18 +127,47 @@ export default {
     createProduct(){
       console.log("Create")
       this.listType.sort((a, b) => a.price - b.price);
-      axios.post('http://localhost:8001/createProduct', {
-            "name": this.name,
-            "detail": this.detail,
-            "photo": "hello",
-            "sellerId": this.user._id,
-            "type": this.listType
-          })
-        .then((response) => {
-          console.log(response);
-        }, (error) => {
-          console.log(error);
-        });
+      var config = {
+            method: 'post',
+            url: 'https://www.googleapis.com/upload/drive/v3/files/',
+            headers: {
+                'Authorization': 'Bearer ya29.a0AX9GBdVr-K2zTQ7qlX5l9xjO6fbZ0O-zbw8NjALXCeAomVYJBX9WhhzO1Inr2DczcXt5aKWk_mYk1fVsXaCbeao5yV60yWhTgibRMLAXrGkik4WaapD5waLDVVIvAxh-rJ7pZwcMiF4ZgA66-gerAGxnrEnQ4vQaCgYKATISAQASFQHUCsbCDDxFv_BndT4JYIHOfr_MqQ0166',
+                'Content-Type': 'image/png'
+            },
+            data: this.file
+      };
+      axios(config)
+      .then((response) => {
+             let imageURL = "";
+                imageURL = "https://drive.google.com/uc?export=view&id=" + response.data.id
+                console.log(response.data.id);
+                const fileId = response.data.id;
+                const permissionConfig = {
+                    method: 'post',
+                    url: `https://www.googleapis.com/drive/v3/files/${fileId}/permissions`,
+                    headers: {
+                        'Authorization': 'Bearer ya29.a0AX9GBdVr-K2zTQ7qlX5l9xjO6fbZ0O-zbw8NjALXCeAomVYJBX9WhhzO1Inr2DczcXt5aKWk_mYk1fVsXaCbeao5yV60yWhTgibRMLAXrGkik4WaapD5waLDVVIvAxh-rJ7pZwcMiF4ZgA66-gerAGxnrEnQ4vQaCgYKATISAQASFQHUCsbCDDxFv_BndT4JYIHOfr_MqQ0166',
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        "role": "reader",
+                        "type": "anyone"
+                    }
+                }
+                axios(permissionConfig).then()
+                axios.post('http://localhost:8001/createProduct', {
+                    "name": this.name,
+                    "detail": this.detail,
+                    "photo": imageURL,
+                    "sellerId": this.user._id,
+                    "type": this.listType
+                  })
+                .then((response) => {
+                  console.log(response);
+                }, (error) => {
+                  console.log(error);
+                });
+            })
     },
     addType() {
       this.listType.push({ color: '', size: '', price: 0, quantity: 0 })
@@ -145,6 +175,10 @@ export default {
     deleteType(index) {
       this.listType.splice(index, 1);
     },
+    onFileChange(event) {
+      this.file = event.target.files[0]
+      console.log(this.file)
+    }
     // selectImages(event) {
     //   this.myImage = event.target.files;
     //   console.log(this.myImage[0])

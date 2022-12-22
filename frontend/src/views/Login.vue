@@ -66,6 +66,7 @@ export default {
   name: "App",
   data() {
     return {
+      listCustomers:[],
       username: "",
       email: "",
       password: "",
@@ -73,30 +74,57 @@ export default {
       role: "",
     };
   },
+  mounted(){
+    this.getCustomers()
+  },
   methods: {
-    submit() {
-      if (!this.role) {
-        alert("Please choose role to login.")
-        return
-      }
-      const data = {
-        username: this.email,
-        password: this.password,
-        role: this.role,
-      };
-
+    getCustomers(){
       axios
-        .post("http://localhost:3000/user/login/", data)
+        .get(`http://localhost:8003/getCustomers`)
         .then((res) => {
-          const token = res.data.token;
-          localStorage.setItem("token", token);
-          this.$emit("auth-change");
-          this.$router.push({ path: "/" });
+          this.listCustomers = res.data
         })
         .catch((error) => {
-          this.error = error.response.data;
-          console.log(error.response.data);
+          alert(error.response.data.message)
         });
+    },
+    submit() {
+      var check = false
+      this.listCustomers.forEach(cus => {
+        if (cus.email == this.email && cus.password == this.password){
+          alert("Login Success")
+          localStorage.setItem("customerId", cus._id);
+          check = true
+          this.$router.push({ path: "/" });
+          location.reload()
+        }
+      })
+      if (!check){
+        console.log("incorrect Email or Password")
+      }
+      
+      // if (!this.role) {
+      //   alert("Please choose role to login.")
+      //   return
+      // }
+      // const data = {
+      //   username: this.email,
+      //   password: this.password,
+      //   role: this.role,
+      // };
+
+      // axios
+      //   .post("http://localhost:3000/user/login/", data)
+      //   .then((res) => {
+      //     const token = res.data.token;
+      //     localStorage.setItem("token", token);
+      //     this.$emit("auth-change");
+      //     this.$router.push({ path: "/" });
+      //   })
+      //   .catch((error) => {
+      //     this.error = error.response.data;
+      //     console.log(error.response.data);
+      //   });
     },
   },
 };

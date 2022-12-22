@@ -17,22 +17,26 @@
           </div>
           <div class="column is-6 ">
             <div class="title">
-              <p class="title "></p>
+              <p class="title ">{{ this.product.name }}</p>
             </div>
             <hr />
             <div class="coloumn is-6">
-              <p class=" has-text-justified">
+              <p class=" has-text-justified" v-if="(selColor == '' || selSize == '')">
                 <span>฿</span>
-                {{ this.product.type[0].price }}
+                {{ this.product.type[0].price }} - {{ this.product.type[this.product.type.length - 1].price }}
+              </p>
+              <p class=" has-text-justified" v-else>
+                <span>฿</span>
+                {{ Price() }}
               </p>
               <div class=" has-text-left">
                 <div class=" componentorder is-size-4 has-text-left"> สี </div>
-                <button class="button colorbtn" :class="[checkColorSelect(item) ? 'is-dark' : 'is-light']"
+                <button style="font-family: 'Prompt', sans-serif;" class="button colorbtn" :class="[checkColorSelect(item) ? 'is-dark' : 'is-light']"
                   v-for="(item, index) in this.type.color" :key="index" @click="selColor = item">{{ item }}</button>
               </div>
               <div class=" has-text-left">
                 <div class=" componentorder is-size-4 has-text-left"> ขนาด </div>
-                <button class="button colorbtn" :class="[checkSizeSelect(item) ? 'is-dark' : 'is-light']"
+                <button style="font-family: 'Prompt', sans-serif;" class="button colorbtn" :class="[checkSizeSelect(item) ? 'is-dark' : 'is-light']"
                   v-for="(item, index) in this.type.size" :key="index" @click="selSize = item">{{ item }}</button>
               </div>
               <div class="has-text-left">
@@ -48,12 +52,11 @@
               </div>
             </div>
             <div class=" has-text-left column is-12 btnspace">
-              <button class="button is-dark ordering mr-5">เพิ่มสินค้าลงในตะกร้า</button>
+              <button style="font-family: 'Prompt', sans-serif;" class="button is-dark ordering mr-5" @click="AddOrder()">เพิ่มสินค้าลงในตะกร้า</button>
               <!-- <button class="button is-dark ordering">เพิ่มสินค้าลงในรายการโปรด</button> -->
-              <a><img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" width="40" v-if="fav == false"
-                  @click="fav = true">
-                <img src="https://cdn-icons-png.flaticon.com/512/1077/1077086.png" width="40" v-else-if="fav"
-                  @click="fav = false"></a>
+              <a class="favo" @click="Checkfav()"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"
+                  width="40" v-if="fav == false">
+                <img src="https://cdn-icons-png.flaticon.com/512/1077/1077086.png" width="40" v-else-if="fav"></a>
             </div>
             <div class="detail">
               <p class="textcolor is-size-4 has-text-left">รายละเอียดสินค้า</p>
@@ -75,6 +78,7 @@ export default {
   props: ["user"],
   data() {
     return {
+      listCustomers:[],
       fav: false,
       selColor: "",
       selSize: "",
@@ -119,14 +123,12 @@ export default {
   },
   mounted() {
     window.scrollTo(0, 0)
-    // this.getMovieDetail(this.$route.params.id);
-
-    // this.getProducts(this.$route.params.id)
-    this.selectType()
+    this.getProducts(this.$route.params.id)
+    // this.selectType()
   },
   methods: {
-    getProducts(id) {
-      axios
+    async getProducts(id) {
+      await axios
         .get(`http://localhost:8001/getProducts`)
         .then((res) => {
           this.product = res.data.filter(item => {
@@ -136,6 +138,7 @@ export default {
         .catch((error) => {
           alert(error.response.data.message)
         });
+      this.selectType()
     },
     selectType() {
       this.product.type.forEach(item => {
@@ -160,58 +163,45 @@ export default {
     checkSizeSelect(item) {
       return this.selSize == item
     },
-    // getMovieDetail(id) {
-    //   axios
-    //     .get(`http://localhost:3000/movies/detail/${id}`)
-    //     .then((response) => {
-    //       this.movie = response.data.moviedetail[0];
-    //       this.show = response.data.show;
-    //       this.movie.release_date = new Date(this.movie.release_date).toDateString()
-
-    //       for (var i = 0; i < this.show.length; i++) {
-    //         this.show[i].show_date = new Date(this.show[i].show_date).toDateString()
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
+    Price() {
+      return this.product.type.find(item => item.color == this.selColor && item.size == this.selSize).price
+    },
+    // image(file_path) {
+    //   if (file_path) {
+    //     return "http://localhost:3000/" + file_path;
+    //   } else {
+    //     return "https://bulma.io/images/placeholders/640x360.png";
+    //   }
     // },
-    image(file_path) {
-      if (file_path) {
-        return "http://localhost:3000/" + file_path;
-      } else {
-        return "https://bulma.io/images/placeholders/640x360.png";
-      }
-    },
-    isAdmin() {
-      if (!this.user) return false
-      return this.user.role == 'admin'
-    },
-    isCusto() {
-      if (!this.user) return false
-      return this.user.role == 'customer'
-    },
-    checkEditShow() {
-      this.editShow = true
-    },
-    CancelEditShow() {
-      this.editShow = false
-    },
-    DeleteShow(id) {
-      const result = confirm('Are you sure you want to delete this show ?');
-      if (result) {
-        axios
-          .delete(`http://localhost:3000/show/delete/${id}`)
-          .then((response) => {
-            this.getMovieDetail(this.$route.params.id);
-            this.editShow = false
-            console.log(response)
-          })
-          .catch((error) => {
-            alert(error.response.data.message)
-          });
-      }
-    },
+    // isAdmin() {
+    //   if (!this.user) return false
+    //   return this.user.role == 'admin'
+    // },
+    // isCusto() {
+    //   if (!this.user) return false
+    //   return this.user.role == 'customer'
+    // },
+    // checkEditShow() {
+    //   this.editShow = true
+    // },
+    // CancelEditShow() {
+    //   this.editShow = false
+    // },
+    // DeleteShow(id) {
+    //   const result = confirm('Are you sure you want to delete this show ?');
+    //   if (result) {
+    //     axios
+    //       .delete(`http://localhost:3000/show/delete/${id}`)
+    //       .then((response) => {
+    //         this.getMovieDetail(this.$route.params.id);
+    //         this.editShow = false
+    //         console.log(response)
+    //       })
+    //       .catch((error) => {
+    //         alert(error.response.data.message)
+    //       });
+    //   }
+    // },
     plusfunc() {
       console.log(this.numQuantity);
       // this.numtest += 1;
@@ -221,6 +211,42 @@ export default {
       if (this.numQuantity > 1) {
         parseInt(this.numQuantity--);
       }
+    },
+    Checkfav() {
+      this.fav = !this.fav
+      // if (this.fav) {
+      // เพิ่มว่า id .. color .. size .. นี้ได้ fav ไว้
+      // }
+    },
+    async AddOrder() {
+      await axios
+        .get(`http://localhost:8003/getCustomers`)
+        .then((res) => {
+          this.listCustomers = res.data
+        })
+        .catch((error) => {
+          alert(error.response.data.message)
+        });
+    var customer = this.listCustomers.filter(item => {
+          return item._id == localStorage.getItem("customerId")
+        })[0]
+    customer.cartList.push({
+      "productId": this.product._id,
+      "color": this.selColor,
+      "size": this.selSize,
+      "quantity": this.numQuantity
+    })
+    console.log(customer)
+      await axios
+        .post(`http://localhost:8003/updateCustomer`, customer)
+        .then((res) => {
+          if(res.data.slice(0,14) == "Update Success"){
+            alert("Add to cart Success")
+          }
+        })
+        .catch((error) => {
+          alert(error.response.data.message)
+        });
     }
 
 

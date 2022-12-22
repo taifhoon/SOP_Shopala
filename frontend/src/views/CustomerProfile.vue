@@ -16,7 +16,7 @@
                 <p>ชื่อ :</p>
               </div>
               <div class="column is-5">
-                <input class="input" type="text" v-model="name" />
+                <input class="input" type="text" v-model="customer.name" />
               </div>
             </div>
           </div>
@@ -26,7 +26,7 @@
                 <p>อีเมล :</p>
               </div>
               <div class="column is-5">
-                <input class="input" type="text" v-model="name" />
+                <input class="input" type="text" v-model="customer.email" />
               </div>
             </div>
           </div>
@@ -36,7 +36,17 @@
                 <p>รหัสผ่าน :</p>
               </div>
               <div class="column is-5">
-                <input class="input" type="text" v-model="name" />
+                <input class="input" type="text" v-model="customer.password" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="columns">
+              <div class="column is-2">
+                <p>เบอร์โทรศัพท์ :</p>
+              </div>
+              <div class="column is-5">
+                <input class="input" type="text" v-model="customer.tel" />
               </div>
             </div>
           </div>
@@ -46,7 +56,7 @@
                 <p>ที่อยู่ :</p>
               </div>
               <div class="column is-5">
-                <input class="input" type="text" v-model="name" />
+                <input class="input" type="text" v-model="customer.address" />
               </div>
             </div>
           </div>
@@ -54,16 +64,20 @@
             <div class="columns">
               <div class="column is-2">
                 <div class="buttons">
-                  <button class="button is-info" @click="passwordModal = !passwordModal" style="width: 140px;">
-                    Save
-                  </button>
+                  <router-link to="/">
+                    <button class="button is-info" @click="passwordModal = !passwordModal" style="width: 140px;">
+                      Save
+                    </button>
+                  </router-link>
                 </div>
               </div>
               <div class="column is-2">
                 <div class="buttons">
-                  <button class="button is-info" @click="passwordModal = !passwordModal" style="width: 140px;">
-                    Cancel
-                  </button>
+                  <router-link to="/">
+                    <button class="button is-info" @click="passwordModal = !passwordModal" style="width: 140px;">
+                      Cancel
+                    </button>
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -74,24 +88,42 @@
   </div>
 </template>
 <script>
-// import axios from "@/plugins/axios";
+import axios from "@/plugins/axios";
 export default {
   name: "app",
-  props: ["user"],
+  // props: ["user"],
   data() {
     return {
-      passwordModal: false,
-      oldpassword: "",
-      newpassword: "",
-      confirmpassword: "",
-      confirmnewpassword: "",
-      email: "",
-      name: "",
-      phone: "",
-      err: "",
-      success: null,
+      // passwordModal: false,
+      // newpassword: "",
+      // confirmpassword: "",
+      // confirmnewpassword: "",
+      // email: "",
+      // name: "",
+      // phone: "",
+      // password: "",
+      // err: "",
+      // success: null,
+      customer: {}
     };
   },
+  mounted() {
+    this.getCustomer()
+  },
+  methods: {
+    getCustomer() {
+      axios
+        .get(`http://localhost:8003/getCustomers`)
+        .then((res) => {
+          this.customer = res.data.filter(item => {
+            return item._id == localStorage.getItem("customerId")
+          })[0]
+        })
+        .catch((error) => {
+          alert(error.response.data.message)
+        });
+    }
+  }
   // mounted() {
   //   window.scrollTo(0, 0);
   // },
