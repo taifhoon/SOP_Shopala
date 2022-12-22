@@ -52,10 +52,10 @@ const routes = [
     component: () => import('../views/CustomerProfile.vue')
   },
   {
-    path: '/customer/order',
-    name: 'Order',
+    path: '/customer/cart',
+    name: 'Cart',
     // meta: { login: true},
-    component: () => import('../views/CustomerOrder.vue')
+    component: () => import('../views/CustomerCart.vue')
   },
   {
     path: '/customer/myorder/',

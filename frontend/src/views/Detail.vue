@@ -3,7 +3,7 @@
     <router-link class="has-text-dark" id='button' to="/">
       <div class="arrow">
         <img class="imgarrow"
-          src="https://www.flaticon.com/svg/vstatic/svg/3916/3916810.svg?token=exp=1671377228~hmac=1258a1e45339936c5da1bcba43dcf873"
+          src="https://cdn.discordapp.com/attachments/1033283242121498625/1055543133351448678/arrow-left.png"
           alt="">
       </div>
     </router-link>
@@ -87,38 +87,7 @@ export default {
       show: [],
       editShow: false,
       type: { color: [], size: [] },
-      product: {
-        "_id": "a1bba32a-e382-48fc-b4d7-ee2931bac028",
-        "name": "iphone 9",
-        "photo": "hello",
-        "sellerId": "fffffffffffffffffffffff",
-        "detail": "ippp",
-        "type": [
-          {
-            "price": "32900",
-            "color": "black",
-            "size": "128GB",
-            "quantity": 5
-          }, {
-            "price": "39900",
-            "color": "black",
-            "size": "256GB",
-            "quantity": 3
-          },
-          {
-            "price": "21900",
-            "color": "blue",
-            "size": "256GB",
-            "quantity": 7
-          },
-          {
-            "price": "41900",
-            "color": "blue",
-            "size": "1TB",
-            "quantity": 1
-          }
-        ]
-      },
+      product: {},
     };
   },
   mounted() {
@@ -256,11 +225,11 @@ export default {
 
 <style>
 .arrow {
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  top: -5%;
-  left: 0;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -2%;
+    left: 0;
 }
 
 .productimg {

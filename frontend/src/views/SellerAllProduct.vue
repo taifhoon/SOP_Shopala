@@ -4,7 +4,7 @@
         <router-link class="has-text-dark" id='button' to="/seller/home">
             <div class="arrow">
                 <img class="imgarrow"
-                    src="https://www.flaticon.com/svg/vstatic/svg/3916/3916810.svg?token=exp=1671377228~hmac=1258a1e45339936c5da1bcba43dcf873"
+                    src="https://cdn.discordapp.com/attachments/1033283242121498625/1055543133351448678/arrow-left.png"
                     alt="">
             </div>
         </router-link>
@@ -30,7 +30,9 @@
                         <div class="card" id="card1">
                             <div class="card-image pt-4">
                                 <figure>
-                                    <img src="https://twicpics.celine.com/product-prd/images/large/344893602C.38NO_1_WIN21.jpg?twic=v1/cover=1:1/resize-max=480"
+                                    <img 
+                                    class="imaproduct"
+                                    :src="item.photo"
                                         alt="">
                                 </figure>
                             </div>
@@ -131,11 +133,16 @@ export default {
     padding-top: 20px;
 
 }
+
 .arrow {
     width: 30px;
     height: 30px;
     position: absolute;
     top: 0%;
     left: 0;
+}
+.imaproduct {
+  height: 220px;
+  object-fit: cover;
 }
 </style>

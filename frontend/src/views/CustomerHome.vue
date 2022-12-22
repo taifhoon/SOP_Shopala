@@ -38,6 +38,7 @@
                 <div class="card-image pt-4">
                   <figure>
                     <img
+                    class="imaproduct"
                       :src="item.photo"
                       alt="">
                   </figure>
@@ -85,6 +86,7 @@ export default {
   data() {
     return {
       searchinput: "",
+      cusId:null,
       product: [],
       // order: "show_date",
       // theatre: "none",
@@ -140,6 +142,7 @@ export default {
     // this.getMovie();
 
     this.getProducts()
+    this.statelogin()
   },
   methods: {
     getProducts() {
@@ -202,6 +205,13 @@ export default {
     isCusto() {
       if (!this.user) return false
       return this.user.role == 'customer'
+    },
+    statelogin(){
+      this.cusId = localStorage.getItem("customerId")
+      if(this.cusId == null){
+        alert("you are not login")
+        this.$router.push({ path: "/user/login" })
+      }
     }
 
   },
@@ -217,8 +227,10 @@ export default {
   border-image-source: linear-gradient(to bottom, #363636, #575757, #b3b3b3);
   border-image-slice: 1;
 }
-
-
+.imaproduct {
+  height: 220px;
+  object-fit: cover;
+}
 
 .btnsearch:hover {
   background-color: white;

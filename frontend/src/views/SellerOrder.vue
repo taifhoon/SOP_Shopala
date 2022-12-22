@@ -4,7 +4,7 @@
         <router-link class="has-text-dark" id='button' to="/seller/home">
             <div class="arrow">
                 <img class="imgarrow"
-                    src="https://www.flaticon.com/svg/vstatic/svg/3916/3916810.svg?token=exp=1671377228~hmac=1258a1e45339936c5da1bcba43dcf873"
+                    src="https://cdn.discordapp.com/attachments/1033283242121498625/1055543133351448678/arrow-left.png"
                     alt="">
             </div>
         </router-link>
@@ -16,12 +16,12 @@
                 <hr />
                 <div class="columns">
                     <div class="column">
-                        <div class="row" v-for="(order, index) in sellerOrders">
+                        <div class="row" v-for="(order, index) in sellerOrders" :key="index">
                             <div class="columns box">
                                 <div class="column is-2 pt-5">{{ getCustomerById(order.customerId) }}</div>
                                 <div class="column is-2 pt-5">{{ order.date.slice(0,10) }}</div>
                                 <div class="column box is-4">
-                                    <div class="row" v-for="(item, index) in order.type">
+                                    <div class="row" v-for="(item, index) in order.type" :key="index">
                                         <div class="column">CELINE MARGARET LOAFER WITH TRIOMPHE CHAIN IN
                                             POLISHED
                                             BULLBLACK </div>

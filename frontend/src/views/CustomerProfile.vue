@@ -65,7 +65,7 @@
               <div class="column is-2">
                 <div class="buttons">
                   <router-link to="/">
-                    <button class="button is-info" @click="passwordModal = !passwordModal" style="width: 140px;">
+                    <button class="button is-info" @click="save()" style="width: 140px;">
                       Save
                     </button>
                   </router-link>
@@ -74,7 +74,7 @@
               <div class="column is-2">
                 <div class="buttons">
                   <router-link to="/">
-                    <button class="button is-info" @click="passwordModal = !passwordModal" style="width: 140px;">
+                    <button class="button is-info" style="width: 140px;">
                       Cancel
                     </button>
                   </router-link>
@@ -114,6 +114,18 @@ export default {
     getCustomer() {
       axios
         .get(`http://localhost:8003/getCustomers`)
+        .then((res) => {
+          this.customer = res.data.filter(item => {
+            return item._id == localStorage.getItem("customerId")
+          })[0]
+        })
+        .catch((error) => {
+          alert(error.response.data.message)
+        });
+    },
+    save(){
+      axios
+        .post(`http://localhost:8003/updateCustomer`, this.customer)
         .then((res) => {
           this.customer = res.data.filter(item => {
             return item._id == localStorage.getItem("customerId")

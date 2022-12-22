@@ -131,12 +131,12 @@ function mobile(value) {
   return !!value.match(/0[0-9]{9}/);
 }
 
-function complexPassword(value) {
-  if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
-    return false;
-  }
-  return true;
-}
+// function complexPassword(value) {
+//   if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
+//     return false;
+//   }
+//   return true;
+// }
 
 export default {
   name: "app",

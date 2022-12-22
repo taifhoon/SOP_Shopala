@@ -128,7 +128,6 @@ export default {
             axios
                 .get(`http://localhost:8001/getProducts`)
                 .then((res) => {
-                    console.log(res)
                     this.listProducts = res.data
                 })
                 .catch((error) => {

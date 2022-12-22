@@ -4,10 +4,10 @@
     <div v-if="user == null || user == true">
       <nav class="navbar has-background-black" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <router-link to="/" class="navbar-item has-background-black">
+          <router-link to="/" class="navbar-item has-background-black" @click="statelogin()">
             <a class="navbar-item"
               href="https://shopee.co.th/m/free-shipping?af_siteid=an_15131260000&af_sub_siteid=883977554---Maru-&pid=affiliates&utm_campaign=-&utm_content=883977554---Maru-&utm_medium=affiliates&utm_source=an_15131260000">
-              <img src="//onlearn.it.kmitl.ac.th/pluginfile.php/1/theme_remui/logomini/1643255847/itonlearn.png"
+              <img src="https://media.discordapp.net/attachments/1033283242121498625/1055520351569854474/logo_1.png"
                 width="112" height="28">
             </a>
           </router-link>
@@ -37,7 +37,7 @@
                   width="30" height="28" class="has-background-black">
               </a>
             </router-link>
-            <router-link class="navbar-item  has-background-black " to="/customer/order" v-if="user">
+            <router-link class="navbar-item  has-background-black " to="/customer/cart" v-if="user">
               <a class="navbar-item is-hoverable has-background-black">
                 <img
                   src="https://media.discordapp.net/attachments/1033283242121498625/1053243132176760862/trolley-cart.png"
@@ -145,12 +145,14 @@ export default {
       user: true,
       customerId:null,
       sellerId:null,
-      customer:{}
+      customer:{},
+      cusId:null
       // searchinput: customerhome.data().search = this.searchinput,
     };
   },
   mounted() {
     this.getCustomers()
+    this.statelogin()
   },
   methods: {
     async getCustomers(){
@@ -186,6 +188,13 @@ export default {
       localStorage.removeItem("customerId")
       this.$router.push({ path: "/user/login" });
       location.reload();
+    },
+    statelogin(){
+      this.cusId = localStorage.getItem("customerId")
+      if(this.cusId == null){
+        alert("you are not login")
+        this.$router.push({ path: "/user/login" })
+      }
     }
     
     // Search() {
