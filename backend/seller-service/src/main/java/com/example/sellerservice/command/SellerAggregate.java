@@ -16,7 +16,6 @@ public class SellerAggregate {
 
     @AggregateIdentifier
     private String _id;
-    private String username;
     private String password;
     private String name;
     private String email;
@@ -45,7 +44,6 @@ public class SellerAggregate {
     @EventSourcingHandler
     public void setSellerCreatedEvent(SellerCreatedEvent sellerCreatedEvent){
         this._id = sellerCreatedEvent.get_id();
-        this.username = sellerCreatedEvent.getUsername();
         this.password = sellerCreatedEvent.getPassword();
         this.name = sellerCreatedEvent.getName();
         this.email = sellerCreatedEvent.getEmail();
@@ -57,7 +55,6 @@ public class SellerAggregate {
     @EventSourcingHandler
     public void setUpdateSellerRestModel(UpdateSellerRestModel model){
         this._id = model.get_id();
-        this.username = model.getUsername();
         this.password = model.getPassword();
         this.name = model.getName();
         this.email = model.getEmail();

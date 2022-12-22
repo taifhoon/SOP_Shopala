@@ -32,7 +32,6 @@ public class SellerService {
     public String createSeller(CreateSellerRestModel model){
         CreateSellerCommand command = CreateSellerCommand.builder()
                 ._id(UUID.randomUUID().toString())
-                .username(model.getUsername())
                 .password(model.getPassword())
                 .name(model.getName())
                 .email(model.getEmail())
@@ -54,7 +53,6 @@ public class SellerService {
     public String UpdateSeller(UpdateSellerRestModel model) {
         UpdateSellerCommand command = UpdateSellerCommand.builder()
                 ._id(model.get_id())
-                .username(model.getUsername())
                 .password(model.getPassword())
                 .name(model.getName())
                 .email(model.getEmail())
@@ -65,7 +63,7 @@ public class SellerService {
         String result;
         try {
             commandGateway.sendAndWait(command);
-            result = "Update Success Seller Id: " + command.get_id() + "\nName: "+ command.getUsername();
+            result = "Update Success Seller Id: " + command.get_id() + "\nName: "+ command.getEmail();
         } catch (Exception e) {
             result = e.getLocalizedMessage();
         }

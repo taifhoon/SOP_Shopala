@@ -23,13 +23,13 @@ import java.util.List;
 public class CustomerAggregate {
     @AggregateIdentifier
     private String _id;
-    private String username;
     private String password;
     private String name;
     private String email;
     private String address;
     private List<String> favoriteProductId;
     private List<Cart> cartList;
+    private String tel;
 
     @Autowired
     QueryGateway queryGateway;
@@ -51,26 +51,27 @@ public class CustomerAggregate {
     }
 
     @EventSourcingHandler
-    public void setCustomerCreatedEvent(CustomerCreatedEvent customerCreatedEvent){
-        this._id = customerCreatedEvent.get_id();
-        this.username = customerCreatedEvent.getUsername();
-        this.password = customerCreatedEvent.getPassword();
-        this.name = customerCreatedEvent.getName();
-        this.email = customerCreatedEvent.getEmail();
-        this.address = customerCreatedEvent.getAddress();
-        this.favoriteProductId = customerCreatedEvent.getFavoriteProductId();
-    }
-
-    @EventSourcingHandler
-    public void setUpdateCustomerRestModel(UpdateCustomerRestModel model){
+    public void setCustomerCreatedEvent(CustomerCreatedEvent model){
         this._id = model.get_id();
-        this.username = model.getUsername();
         this.password = model.getPassword();
         this.name = model.getName();
         this.email = model.getEmail();
         this.address = model.getAddress();
         this.favoriteProductId = model.getFavoriteProductId();
         this.cartList = model.getCartList();
+        this.tel = model.getTel();
+    }
+
+    @EventSourcingHandler
+    public void setUpdateCustomerRestModel(UpdateCustomerRestModel model){
+        this._id = model.get_id();
+        this.password = model.getPassword();
+        this.name = model.getName();
+        this.email = model.getEmail();
+        this.address = model.getAddress();
+        this.favoriteProductId = model.getFavoriteProductId();
+        this.cartList = model.getCartList();
+        this.tel = model.getTel();
     }
 
 }

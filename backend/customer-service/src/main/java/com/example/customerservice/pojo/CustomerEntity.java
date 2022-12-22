@@ -12,11 +12,11 @@ import java.util.List;
 public class CustomerEntity implements Serializable {
     @Id
     private String _id;
-    private String username;
     private String password;
     private String name;
     private String email;
     private String address;
     private List<String> favoriteProductId;
     private List<Cart> cartList;
+    private String tel;
 }

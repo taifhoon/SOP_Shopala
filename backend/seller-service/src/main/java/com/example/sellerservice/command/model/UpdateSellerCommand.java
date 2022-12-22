@@ -9,7 +9,6 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class UpdateSellerCommand {
     @TargetAggregateIdentifier
     private String _id;
-    private String username;
     private String password;
     private String name;
     private String email;

@@ -11,7 +11,6 @@ import java.io.Serializable;
 public class SellerEntity implements Serializable {
     @Id
     private String _id;
-    private String username;
     private String password;
     private String name;
     private String email;

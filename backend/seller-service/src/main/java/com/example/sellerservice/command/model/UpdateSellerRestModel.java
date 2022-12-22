@@ -7,7 +7,6 @@ import java.io.Serializable;
 @Data
 public class UpdateSellerRestModel implements Serializable {
     private String _id;
-    private String username;
     private String password;
     private String name;
     private String email;

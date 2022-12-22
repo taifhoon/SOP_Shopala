@@ -34,22 +34,20 @@ public class CustomerService {
     public String CreateCustomer(CreateCustomerRestModel model){
         CreateCustomerCommand command = CreateCustomerCommand.builder()
                 ._id(UUID.randomUUID().toString())
-                .username(model.getUsername())
                 .password(model.getPassword())
                 .name(model.getName())
                 .email(model.getEmail())
                 .address("")
                 .favoriteProductId(new ArrayList<>())
                 .cartList(new ArrayList<>())
+                .tel(model.getTel())
                 .build();
 
         FindCustomerQuery findCustomerQuery = new FindCustomerQuery();
         List<CustomerRestModel> customers = queryGateway
                 .query(findCustomerQuery, ResponseTypes.multipleInstancesOf(CustomerRestModel.class)).join();
         for (CustomerRestModel item:customers) {
-            if (item.getUsername().equals(command.getUsername())){
-                return "Username: \"" + command.getUsername() + "\" is already use";
-            } else if (item.getEmail().equals(command.getEmail())) {
+            if (item.getEmail().equals(command.getEmail())) {
                 return "Email: \"" + command.getEmail() + "\" is already use";
             }
         }
@@ -67,18 +65,18 @@ public class CustomerService {
     public String UpdateCustomer(UpdateCustomerRestModel model) {
         UpdateCustomerCommand command = UpdateCustomerCommand.builder()
                 ._id(model.get_id())
-                .username(model.getUsername())
                 .password(model.getPassword())
                 .name(model.getName())
                 .email(model.getEmail())
                 .address(model.getAddress())
                 .favoriteProductId(model.getFavoriteProductId())
                 .cartList(model.getCartList())
+                .tel(model.getTel())
                 .build();
         String result;
         try {
             commandGateway.sendAndWait(command);
-            result = "Update Success Customer Id: " + command.get_id() + "\nName: "+ command.getUsername();
+            result = "Update Success Customer Id: " + command.get_id() + "\nName: "+ command.getEmail();
         } catch (Exception e) {
             result = e.getLocalizedMessage();
         }

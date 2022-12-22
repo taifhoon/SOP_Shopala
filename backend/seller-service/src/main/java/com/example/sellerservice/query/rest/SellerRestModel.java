@@ -7,7 +7,6 @@ import java.io.Serializable;
 @Data
 public class SellerRestModel implements Serializable {
     private String _id;
-    private String username;
     private String password;
     private String name;
     private String email;

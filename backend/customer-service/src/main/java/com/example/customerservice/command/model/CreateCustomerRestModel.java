@@ -7,8 +7,8 @@ import java.util.List;
 
 @Data
 public class CreateCustomerRestModel implements Serializable {
-    private String username;
     private String password;
     private String name;
     private String email;
+    private String tel;
 }
