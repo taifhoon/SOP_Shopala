@@ -11,5 +11,4 @@ public class CreateCustomerRestModel implements Serializable {
     private String password;
     private String name;
     private String email;
-    private String address;
 }

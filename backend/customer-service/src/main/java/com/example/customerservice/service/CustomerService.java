@@ -38,8 +38,9 @@ public class CustomerService {
                 .password(model.getPassword())
                 .name(model.getName())
                 .email(model.getEmail())
-                .address(model.getAddress())
+                .address("")
                 .favoriteProductId(new ArrayList<>())
+                .cartList(new ArrayList<>())
                 .build();
 
         FindCustomerQuery findCustomerQuery = new FindCustomerQuery();
@@ -71,6 +72,8 @@ public class CustomerService {
                 .name(model.getName())
                 .email(model.getEmail())
                 .address(model.getAddress())
+                .favoriteProductId(model.getFavoriteProductId())
+                .cartList(model.getCartList())
                 .build();
         String result;
         try {

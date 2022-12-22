@@ -19,7 +19,6 @@ public class OrderAggregate {
 
     @AggregateIdentifier
     private String _id;
-    private List<String> productId;
     private String customerId;
     private String paymentId;
     private List<OrderType> type;
@@ -36,7 +35,6 @@ public class OrderAggregate {
     @EventSourcingHandler
     public void setOrderCreatedEvent(OrderCreatedEvent orderCreatedEvent){
         this._id = orderCreatedEvent.get_id();
-        this.productId = orderCreatedEvent.getProductId();
         this.customerId = orderCreatedEvent.getCustomerId();
         this.paymentId = orderCreatedEvent.getPaymentId();
         this.type = orderCreatedEvent.getType();

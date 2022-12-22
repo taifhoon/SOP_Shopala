@@ -8,7 +8,6 @@ import java.util.List;
 
 @Data
 public class CreateOrderRestModel implements Serializable {
-    private List<String> productId;
     private String customerId;
     private String paymentId;
     private List<OrderType> type;

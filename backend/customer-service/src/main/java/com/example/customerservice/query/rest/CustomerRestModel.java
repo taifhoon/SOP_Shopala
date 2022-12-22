@@ -1,5 +1,6 @@
 package com.example.customerservice.query.rest;
 
+import com.example.customerservice.pojo.Cart;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,4 +15,5 @@ public class CustomerRestModel implements Serializable {
     private String email;
     private String address;
     private List<String> favoriteProductId;
+    private List<Cart> cartList;
 }
