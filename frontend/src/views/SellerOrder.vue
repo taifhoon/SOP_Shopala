@@ -13,14 +13,14 @@
     <section class="section" id="app">
       <div class="content">
         <p class="title has-text-left mb-2">
-          คำสั่งซื้อ ({{ sellerOrders.length }})
+          คำสั่งซื้อ ({{ orders.length }})
         </p>
         <hr />
         <div class="columns">
           <div class="column">
             <div
               class="row"
-              v-for="(order, index) in sellerOrders"
+              v-for="(order, index) in orders"
               :key="index"
             >
               <div class="columns box">

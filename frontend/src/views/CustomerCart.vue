@@ -180,7 +180,7 @@ export default {
               "name": item.productId.name,
               "price":item.result
         })
-        this.removeItem(this.customer.cartList.indexOf(item)-1)
+        this.removeItem(this.customer.cartList.indexOf(item))
       })
       await axios
       .post(`http://localhost:8002/createOrder`, {

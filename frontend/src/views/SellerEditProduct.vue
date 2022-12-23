@@ -153,7 +153,7 @@ export default {
         url: "https://www.googleapis.com/upload/drive/v3/files/",
         headers: {
           Authorization:
-            "Bearer ya29.a0AX9GBdU2OA7hQ8VqHzZTRWsDZqfvDR-oVdy_78cYYs1Q-R_awVweG89wLQNVKf-Q3S-OYkdZIWDcKKz7lhv7Fpe9w38E9Y39R17Tt5HUs7d79BAVp2yLvsnCHShhu2EaeiI-va3TST8Qw8LBpcUWArsM_l7JaCgYKAV4SARISFQHUCsbCEoQgT36l_mTBD2WLkoTMqA0163",
+            "Bearer ya29.a0AX9GBdV4_gvcZPZ5mxltKAUYQQ-MWADzzVZHFJ8JwjW7BMNYqIKqbaVlvrZnBK353FXcSCKUXKUxVhzXwndyLLOZxN5ka7MdLVT05nzuCASwcsxtIhXjPUxrEZLE-n0BpBd3dPg5jkpt7HoQUNXYYf4jvXPsaCgYKAXUSARISFQHUCsbCV1vxHYKTSR3NT5HBiAg0iA0163",
           "Content-Type": "image/png",
         },
         data: this.file,
@@ -168,7 +168,7 @@ export default {
             method: 'post',
             url: `https://www.googleapis.com/drive/v3/files/${fileId}/permissions`,
             headers: {
-              'Authorization': 'Bearer ya29.a0AX9GBdU2OA7hQ8VqHzZTRWsDZqfvDR-oVdy_78cYYs1Q-R_awVweG89wLQNVKf-Q3S-OYkdZIWDcKKz7lhv7Fpe9w38E9Y39R17Tt5HUs7d79BAVp2yLvsnCHShhu2EaeiI-va3TST8Qw8LBpcUWArsM_l7JaCgYKAV4SARISFQHUCsbCEoQgT36l_mTBD2WLkoTMqA0163',
+              'Authorization': 'Bearer ya29.a0AX9GBdV4_gvcZPZ5mxltKAUYQQ-MWADzzVZHFJ8JwjW7BMNYqIKqbaVlvrZnBK353FXcSCKUXKUxVhzXwndyLLOZxN5ka7MdLVT05nzuCASwcsxtIhXjPUxrEZLE-n0BpBd3dPg5jkpt7HoQUNXYYf4jvXPsaCgYKAXUSARISFQHUCsbCV1vxHYKTSR3NT5HBiAg0iA0163',
               'Content-Type': 'application/json'
             },
             data: {

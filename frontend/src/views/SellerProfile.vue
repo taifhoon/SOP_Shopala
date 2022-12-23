@@ -36,7 +36,7 @@
                                 <p>รหัสผ่าน :</p>
                             </div>
                             <div class="column is-5">
-                                <input class="input" type="text" v-model="seller.password" />
+                                <input class="input" type="password" v-model="seller.password" />
                             </div>
                         </div>
                     </div>
