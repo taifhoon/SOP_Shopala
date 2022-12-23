@@ -10,7 +10,7 @@
         </router-link>
         <section class="section" id="app">
             <div class="columns mb-6 is-justify-content-center">
-                <input class="input column is-6 is-align-self-center" type="text" v-model="searchinput"
+                <input class="input column is-6 is-align-self-center" type="text" v-model="searchinput" id="testborder"
                     placeholder="Search anything that you wants . . . ">
                 <div class="btnsearc column is-1" @click="Search()">
                     <a class="navbar-item">
@@ -27,7 +27,7 @@
 
                 <div class="columns is-multiline">
                     <div class="column is-3" v-for="(item, index) in listProducts" :key="index">
-                        <div class="card" id="card1">
+                        <div class="card" id="card">
                             <div class="card-image pt-4">
                                 <figure>
                                     <img 
@@ -42,12 +42,12 @@
                                 </div>
                                 <div class="text">{{ item.detail }}</div>
                                 
-                                <div class="content zonecon" v-if="item.type.length > 1">
+                                <!-- <div class="content zonecon" v-if="item.type.length > 1">
                                     <span>฿</span>
                                     {{ item.type[0].price }} - {{ item.type[item.type.length - 1].price }}
-                                </div>
-                                <div class="content zonecon" v-else>
-                                    <span>฿ {{ item.type.price }}</span>
+                                </div> -->
+                                <div class="content zonecon" >
+                                    <span>฿ {{ item.type[0].price }}</span>
                                 </div>
                             </div>
                             <footer class="card-footer">
@@ -72,7 +72,7 @@ export default {
     data() {
         return {
             searchinput: "",
-            userid:"1",
+            userid:'',
             // customer: [],
             // order: [],
             // paid: [],
@@ -100,23 +100,24 @@ export default {
                 .catch((error) => {
                     alert(error.response.data.message)
                 });
+                this.userid = localStorage.getItem("sellerId")
         },
         Search() {
-            if (this.searchinput != "") {
-                this.listProducts = this.listProducts.filter((item) => item.name.toLowerCase().includes(this.searchinput.toLowerCase()));
-            }
-            // axios
-            //     .get(`http://localhost:8001/getProducts`)
-            //     .then((res) => {
-            //         this.listProducts = res.data
+            // if (this.searchinput != "") {
+            //     this.listProducts = this.listProducts.filter((item) => item.name.toLowerCase().includes(this.searchinput.toLowerCase()));
+            // }
+            axios
+                .get(`http://localhost:8001/getProducts`)
+                .then((res) => {
+                    this.listProducts = res.data
 
-            //         if (this.searchinput != "") {
-            //             this.listProducts = this.listProducts.filter((item) => item.name.includes(this.searchinput));
-            //         }
-            //     })
-            //     .catch((error) => {
-            //         alert(error.response.data.message)
-            //     });
+                    if (this.searchinput != "") {
+                        this.listProducts = this.listProducts.filter((item) => item.name.toLowerCase().includes(this.searchinput.toLowerCase()));
+                    }
+                })
+                .catch((error) => {
+                    alert(error.response.data.message)
+                });
         },
     }
 };
@@ -126,13 +127,18 @@ export default {
     width: 100%;
 }
 
-#card1 {
-    width: 100%;
-    background-color: rgb(213, 215, 218);
-    border-radius: 15px;
-    padding-top: 20px;
-
-}
+#card{
+   width:100%;
+   background-color: rgb(255, 255, 255);
+   border-radius: 15px;
+   padding-top:20px;
+   
+ }
+ #card:hover{
+   box-shadow: 6px 6px rgb(133, 131, 131);
+   transform: scale(1.02);
+   transition: ease-out 0.5s;
+ }
 
 .arrow {
     width: 30px;
@@ -144,5 +150,14 @@ export default {
 .imaproduct {
   height: 220px;
   object-fit: cover;
+}
+.btnsearch:hover {
+  background-color: white;
+}
+
+#testborder {
+   border-width: 3px;
+   border-radius: 25px;
+   border-color: rgb(142, 143, 146);
 }
 </style>

@@ -20,7 +20,7 @@
           <h1 class="title has-text-left">{{ search }}</h1>
 
           <!-- ลองหน้าของ seller -->
-          <span>
+          <!-- <span>
             <router-link class="has-text-dark" id='button' to="/seller/home">Seller Home</router-link>
           </span>
           <br />
@@ -30,11 +30,11 @@
           <br />
           <span>
             <router-link class="has-text-dark" id='button' to="/seller/profile">Seller Profile</router-link>
-          </span>
+          </span> -->
 
           <div class="columns is-multiline">
             <div class="column is-3" v-for="(item, index) in listProducts" :key="index">
-              <div class="card">
+              <div class="card" id="card">
                 <div class="card-image pt-4">
                   <figure>
                     <img
@@ -43,7 +43,7 @@
                       alt="">
                   </figure>
                 </div>
-                <div class="card-content">
+                <div class="card-content" >
                   <div class="text">
                     <h4>{{ item.name }}</h4>
                   </div>
@@ -56,13 +56,9 @@
                     <span>฿</span>
                     {{ item.type.price }}
                   </div> -->
-                  <div class="content zonecon" v-if="item.type.length > 1">
-                    <span>฿</span>
+                  <div class="content zonecon">
+                    <span>฿ </span>
                     {{ item.type[0].price }}
-                  </div>
-                  <div class="content zonecon" v-else>
-                    <span>฿</span>
-                    {{ item.type.price }}
                   </div>
                 </div>
                 <footer class="card-footer">
@@ -82,7 +78,7 @@
 import axios from '@/plugins/axios'
 export default {
   name: "app",
-  props: ['user'],
+  props: ["user"],
   data() {
     return {
       searchinput: "",
@@ -91,50 +87,7 @@ export default {
       // order: "show_date",
       // theatre: "none",
 
-      listProducts: [
-        {
-          "_id": "a1bba32a-e382-48fc-b4d7-ee2931bac028",
-          "name": "iphone 9",
-          "photo": "hello",
-          "sellerId": "fffffffffffffffffffffff",
-          "detail": "ippp",
-          "type": [
-            {
-              "price": "32900",
-              "color": "black",
-              "size": "128GB",
-              "quantity": 5
-            },
-            {
-              "price": "39900",
-              "color": "blue",
-              "size": "128GB",
-              "quantity": 3
-            }
-          ]
-        },
-        {
-          "_id": "e8fbfb5b-990d-46e9-8832-9a4a78c2a616",
-          "name": "woranun",
-          "detail": "XR",
-          "photo": "hello",
-          "sellerId": "fffffffffffffffffffffff",
-          "type": [
-            {
-              "price": "41900",
-              "color": "silver",
-              "size": "256GB",
-              "quantity": 9
-            },
-            {
-              "price": "39900",
-              "color": "gold",
-              "size": "128GB",
-              "quantity": 4
-            }
-          ]
-        }
-      ]
+      listProducts:[]
     };
   },
   mounted() {
@@ -142,7 +95,6 @@ export default {
     // this.getMovie();
 
     this.getProducts()
-    this.statelogin()
   },
   methods: {
     getProducts() {
@@ -156,21 +108,21 @@ export default {
         });
     },
     Search() {
-      if (this.searchinput != "") {
-        this.listProducts = this.listProducts.filter((item) => item.name.toLowerCase().includes(this.searchinput.toLowerCase()));
-      }
-      // axios
-      //   .get(`http://localhost:8001/getProducts`)
-      //   .then((res) => {
-      //     this.listProducts = res.data
+      // if (this.searchinput != "") {
+      //   this.listProducts = this.listProducts.filter((item) => item.name.toLowerCase().includes(this.searchinput.toLowerCase()));
+      // }
+      axios
+        .get(`http://localhost:8001/getProducts`)
+        .then((res) => {
+          this.listProducts = res.data
 
-      //     if (this.searchinput != "") {
-      //       this.listProducts = this.listProducts.filter((item) => item.name.toLowerCase().includes(this.searchinput.toLowerCase()));
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     alert(error.response.data.message)
-      //   });
+          if (this.searchinput != "") {
+            this.listProducts = this.listProducts.filter((item) => item.name.toLowerCase().includes(this.searchinput.toLowerCase()));
+          }
+        })
+        .catch((error) => {
+          alert(error.response.data.message)
+        });
     },
     // getMovie() {
     //   axios
@@ -206,13 +158,6 @@ export default {
       if (!this.user) return false
       return this.user.role == 'customer'
     },
-    statelogin(){
-      this.cusId = localStorage.getItem("customerId")
-      if(this.cusId == null){
-        alert("you are not login")
-        this.$router.push({ path: "/user/login" })
-      }
-    }
 
   },
 };
@@ -241,4 +186,16 @@ export default {
    border-radius: 25px;
    border-color: rgb(142, 143, 146);
 }
+#card{
+   width:100%;
+   background-color: rgb(255, 255, 255);
+   border-radius: 15px;
+   padding-top:20px;
+   
+ }
+ #card:hover{
+   box-shadow: 6px 6px rgb(133, 131, 131);
+   transform: scale(1.02);
+   transition: ease-out 0.5s;
+ }
 </style>

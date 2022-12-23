@@ -65,7 +65,7 @@
               <div class="column is-2">
                 <div class="buttons">
                   <router-link to="/">
-                    <button class="button is-info" @click="save()" style="width: 140px;">
+                    <button class="button is-success" @click="save()" style="width: 140px;">
                       Save
                     </button>
                   </router-link>

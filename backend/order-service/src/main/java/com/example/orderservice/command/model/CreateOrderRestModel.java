@@ -10,5 +10,6 @@ import java.util.List;
 public class CreateOrderRestModel implements Serializable {
     private String customerId;
     private String paymentId;
+    private double sumPrice;
     private List<OrderType> type;
 }

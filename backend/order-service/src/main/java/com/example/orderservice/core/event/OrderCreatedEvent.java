@@ -12,6 +12,7 @@ public class OrderCreatedEvent {
     private List<String> productId;
     private String customerId;
     private String paymentId;
+    private double sumPrice;
     private Date date;
     private List<OrderType> type;
 }

@@ -11,4 +11,5 @@ public class Cart implements Serializable {
     private String color;
     private String size;
     private Integer quantity;
+    private double price;
 }

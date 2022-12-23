@@ -47,9 +47,6 @@
                   <p class="help is-danger" v-if="!$v.password.minLength">
                     The password must be at least 8 letters
                   </p>
-                  <p class="help is-danger" v-if="!$v.password.complexPassword">
-                    The password is too easy
-                  </p>
                 </template>
               </div>
               <div class="field">
@@ -130,16 +127,16 @@
     sameAs,
   } from "vuelidate/lib/validators";
   
-  function mobile(value) {
-    return !!value.match(/0[0-9]{9}/);
-  }
+  // function mobile(value) {
+  //   return !!value.match(/0[0-9]{9}/);
+  // }
   
-  function complexPassword(value) {
-    if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
-      return false;
-    }
-    return true;
-  }
+  // function complexPassword(value) {
+  //   if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
   
   export default {
     name: "app",
@@ -149,7 +146,7 @@
         password: "",
         confirm_password: "",
         email: "",
-        mobile: "",
+        // mobile: "",
         c_name: "",
       };
     },
@@ -157,14 +154,24 @@
     computed: {},
     methods: {
       submit() {
+        this.$v.$touch();
+      if (!this.$v.$invalid) {
+        let data = {
+          password: this.password,
+          confirm_password: this.confirm_password,
+          email: this.email,
+          c_name: this.c_name,
+        };
+
         axios.post("http://localhost:8004/createSeller", {
-          "email": this.email,
-          "password": this.confirm_password,
-          "name": this.c_name
+          "email": data.email,
+          "password": data.confirm_password,
+          "name": data.c_name
         })
       .then((res) => {
           localStorage.setItem("sellerId", res.data);
-          console.log(res)
+          alert("sign-up success")
+          this.$router.push({ path: "/user/loginseller" })
         })
         .catch((error) => {
           alert(error.response.data.message)
@@ -192,7 +199,7 @@
         //     .catch((err) => {
         //       alert(err.response.data.details.message);
         //     });
-        // }
+        }
       },
     },
     validations: {
@@ -200,14 +207,9 @@
         required: required,
         email,
       },
-      mobile: {
-        required: required,
-        mobile: mobile,
-      },
       password: {
         required: required,
         minLength: minLength(8),
-        complex: complexPassword,
       },
       confirm_password: {
         sameAs: sameAs("password"),

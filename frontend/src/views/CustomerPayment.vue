@@ -1,6 +1,6 @@
 <template>
   <div class="container is-widescreen">
-    <router-link class="has-text-dark" id='button' to="/customer/order">
+    <router-link class="has-text-dark" id='button' to="/customer/cart">
       <div class="arrow">
         <img class="imgarrow"
           src="https://www.flaticon.com/svg/vstatic/svg/3916/3916810.svg?token=exp=1671377228~hmac=1258a1e45339936c5da1bcba43dcf873"

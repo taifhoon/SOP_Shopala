@@ -16,6 +16,7 @@ public class CreateOrderCommand {
     private String _id;
     private String customerId;
     private String paymentId;
+    private double sumPrice;
     private Date date;
     private List<OrderType> type;
 }

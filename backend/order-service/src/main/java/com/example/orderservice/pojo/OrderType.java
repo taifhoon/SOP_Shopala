@@ -9,4 +9,6 @@ public class OrderType implements Serializable {
     private String color;
     private String size;
     private Integer quantity;
+    private String name;
+    private double price;
 }

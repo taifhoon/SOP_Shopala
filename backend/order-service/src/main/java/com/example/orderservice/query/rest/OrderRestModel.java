@@ -13,5 +13,6 @@ public class OrderRestModel implements Serializable {
     private String customerId;
     private String paymentId;
     private Date date;
+    private double sumPrice;
     private List<OrderType> type;
 }

@@ -1,12 +1,14 @@
 <script src="https://kit.fontawesome.com/8ec5a2efe1.js" crossorigin="anonymous"></script>
+
 <template>
+  
   <div id="wrapper">
     <div v-if="user == null || user == true">
       <nav class="navbar has-background-black" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <router-link to="/" class="navbar-item has-background-black" @click="statelogin()">
+          <router-link to="/" class="navbar-item has-background-black">
             <a class="navbar-item"
-              href="https://shopee.co.th/m/free-shipping?af_siteid=an_15131260000&af_sub_siteid=883977554---Maru-&pid=affiliates&utm_campaign=-&utm_content=883977554---Maru-&utm_medium=affiliates&utm_source=an_15131260000">
+              href="">
               <img src="https://media.discordapp.net/attachments/1033283242121498625/1055520351569854474/logo_1.png"
                 width="112" height="28">
             </a>
@@ -87,17 +89,17 @@
         </div>
       </nav>
       <!-- หมวดหมู่ -->
-      <nav class="navbar has-background-grey-light is-justify-content-center" role="navigation"
-        aria-label="main navigation">
-        <div class="navbar-brand">
+      <!-- <nav class="navbar has-background-grey-light is-justify-content-center" role="navigation"
+        aria-label="main navigation"> -->
+        <!-- <div class="navbar-brand">
           <a class="navbar-item">เสื้อผ้า</a>
           <a class="navbar-item ">สุขภาพ/ความงาม</a>
           <a class="navbar-item">สินค้าแม่และเด็ก</a>
           <a class="navbar-item">เครื่องใช้ในบ้าน</a>
           <a class="navbar-item">กีฬา/การเดินทาง</a>
           <a class="navbar-item">อุปกรณ์อิเล็กทรอนิกส์</a>
-        </div>
-      </nav>
+        </div> -->
+      <!-- </nav> -->
     </div>
 
     <div v-else-if="user == false">
@@ -105,8 +107,8 @@
         <div class="navbar-brand">
           <router-link to="/seller/home" class="navbar-item has-background-black">
             <a class="navbar-item"
-              href="https://shopee.co.th/m/free-shipping?af_siteid=an_15131260000&af_sub_siteid=883977554---Maru-&pid=affiliates&utm_campaign=-&utm_content=883977554---Maru-&utm_medium=affiliates&utm_source=an_15131260000">
-              <img src="//onlearn.it.kmitl.ac.th/pluginfile.php/1/theme_remui/logomini/1643255847/itonlearn.png"
+            href="">
+              <img src="https://media.discordapp.net/attachments/1033283242121498625/1055520351569854474/logo_1.png"
                 width="112" height="28">
             </a>
           </router-link>
@@ -115,9 +117,14 @@
           <div class="navbar-end">
             <div class="navbar-item"> 
               <div class="buttons">
+                <button class="button " @click="sellerlogout()">
+                  <a>
+                    <strong class="has-text-black">Log out</strong>
+                  </a>
+                </button>
                 <router-link to="/seller/profile" class="button is-black">
                   <a>
-                    <strong class="has-text-white">Johnny Shop</strong>
+                    <strong class="has-text-white">{{seller.name}}</strong>
                   </a>
                 </router-link>
               </div>
@@ -145,14 +152,16 @@ export default {
       user: true,
       customerId:null,
       sellerId:null,
+      seller:{},
       customer:{},
-      cusId:null
+      cusId:null,
+      selId:null,
       // searchinput: customerhome.data().search = this.searchinput,
     };
   },
   mounted() {
     this.getCustomers()
-    this.statelogin()
+    this.checkUser()
   },
   methods: {
     async getCustomers(){
@@ -164,6 +173,18 @@ export default {
           res.data.forEach(item => {
             if(item._id == this.customerId){
               this.customer = item
+            }
+          })
+        })
+        .catch((error) => {
+          alert(error.response.data.message)
+        });
+        await axios
+        .get(`http://localhost:8004/getSellers`)
+        .then((res) => {
+          res.data.forEach(item => {
+            if(item._id == this.sellerId){
+              this.seller = item
             }
           })
         })
@@ -189,13 +210,20 @@ export default {
       this.$router.push({ path: "/user/login" });
       location.reload();
     },
-    statelogin(){
-      this.cusId = localStorage.getItem("customerId")
-      if(this.cusId == null){
-        alert("you are not login")
-        this.$router.push({ path: "/user/login" })
-      }
-    }
+    sellerlogout(){
+      localStorage.removeItem("sellerId")
+      this.$router.push({ path: "/user/loginseller" });
+      location.reload();
+    },
+    // statelogin(){
+    //   this.cusId = localStorage.getItem("customerId")
+    //   this.selId = localStorage.getItem("sellerId")
+    //   if(this.cusId == null){
+    //     alert("you are not login")
+    //     this.$router.push({ path: "/user/login" })
+    //     this.selId = false
+    //   }
+    // }
     
     // Search() {
     //  customerhome.data().search = this.searchinput;
@@ -279,4 +307,5 @@ export default {
 .iconimg:hover {
   background-color: black;
 }
+
 </style>

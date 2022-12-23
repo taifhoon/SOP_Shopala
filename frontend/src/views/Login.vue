@@ -92,11 +92,10 @@ export default {
       var check = false
       this.listCustomers.forEach(cus => {
         if (cus.email == this.email && cus.password == this.password){
-          alert("Login Success")
           localStorage.setItem("customerId", cus._id);
           check = true
-          this.$router.push({ path: "/" });
           location.reload()
+          
         }
       })
       if (!check){

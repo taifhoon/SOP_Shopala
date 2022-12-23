@@ -16,7 +16,7 @@
                                 <p>ชื่อ :</p>
                             </div>
                             <div class="column is-5">
-                                <input class="input" type="text" v-model="name" />
+                                <input class="input" type="text" v-model="seller.name" />
                             </div>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                                 <p>อีเมล :</p>
                             </div>
                             <div class="column is-5">
-                                <input class="input" type="text" v-model="name" />
+                                <input class="input" type="text" v-model="seller.email" />
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                                 <p>รหัสผ่าน :</p>
                             </div>
                             <div class="column is-5">
-                                <input class="input" type="text" v-model="name" />
+                                <input class="input" type="text" v-model="seller.password" />
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                                 <p>ที่อยู่ :</p>
                             </div>
                             <div class="column is-5">
-                                <input class="input" type="text" v-model="name" />
+                                <input class="input" type="text" v-model="seller.address" />
                             </div>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                                 <p>ธนาคาร :</p>
                             </div>
                             <div class="column is-5">
-                                <input class="input" type="text" v-model="name" />
+                                <input class="input" type="text" v-model="seller.bank" />
                             </div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                                 <p>เลขบัญชี :</p>
                             </div>
                             <div class="column is-5">
-                                <input class="input" type="text" v-model="name" />
+                                <input class="input" type="text" v-model="seller.accountNumber" />
                             </div>
                         </div>
                     </div>
@@ -74,8 +74,7 @@
                         <div class="columns">
                             <div class="column is-2">
                                 <router-link to="/seller/home">
-                                    <button class="button is-info" @click="passwordModal = !passwordModal"
-                                        style="width: 140px;">
+                                    <button class="button is-success" @click="save()" style="width: 140px;">
                                         Save
                                     </button>
                                 </router-link>
@@ -93,63 +92,51 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
+
 // import axios from "@/plugins/axios";
 export default {
     name: "app",
     props: ["user"],
     data() {
         return {
-            passwordModal: false,
-            oldpassword: "",
-            newpassword: "",
-            confirmpassword: "",
-            confirmnewpassword: "",
+            seller: {},
+            password: "",
             email: "",
             name: "",
-            phone: "",
-            err: "",
-            success: null,
+            address: "",
+            bank: "",
+            numberBank: ""
         };
     },
-    // mounted() {
-    //   window.scrollTo(0, 0);
-    // },
+    mounted() {
+        this.getSeller()
+    },
     // created() {
     //   this.getProfile();
     // },
-    // methods: {
-    //   ChangePassword() {
-    //     var id = this.$route.params.id;
-    //     if (this.newpassword != this.confirmpassword) {
-    //       this.err = "รหัสผ่านใหม่ไม่ตรงกัน";
-    //     } else {
-    //       axios
-    //         .put(`/user/change/${id}`, {
-    //           oldpassword: this.oldpassword,
-    //           newpassword: this.newpassword,
-    //         })
-    //         .then((res) => {
-    //           this.err = res.data;
-    //           if (this.err != "รหัสผ่านไม่ถูกต้อง") {
-    //             this.passwordModal = false;
-    //             this.err = null;
-    //             this.success = res.data;
-    //             (this.oldpassword = ""),
-    //               (this.newpassword = ""),
-    //               (this.confirmpassword = "");
-    //           } else if (this.err == "รหัสผ่านไม่ถูกต้อง") {
-    //             this.err = res.data;
-    //             this.success = null;
-    //           }
-    //         });
-    //     }
-    //   },
-    //   getProfile() {
-    //     this.email = this.user.email_id;
-    //     this.name = this.user.c_name;
-    //     this.phone = this.user.phone_no;
-    //   },
-    // },
+    methods: {
+        getSeller() {
+            axios.get("http://localhost:8004/getSellers")
+                .then((res) => {
+                    this.seller = res.data.filter(item => {
+                        return item._id == localStorage.getItem("sellerId")
+                    })[0]
+                })
+                .catch((error) => {
+                    alert(error.response.data.message)
+                });
+        },
+        save(){
+            axios.post("http://localhost:8004/updateSeller", this.seller)
+                .then((res) => {
+                    console.log(res)
+                })
+                .catch((error) => {
+                    alert(error.response.data.message)
+                });
+        }
+    },
 
 }
 </script>

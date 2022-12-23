@@ -21,6 +21,7 @@ public class OrderAggregate {
     private String _id;
     private String customerId;
     private String paymentId;
+    private double sumPrice;
     private List<OrderType> type;
 
     public OrderAggregate(){}
@@ -38,6 +39,7 @@ public class OrderAggregate {
         this.customerId = orderCreatedEvent.getCustomerId();
         this.paymentId = orderCreatedEvent.getPaymentId();
         this.type = orderCreatedEvent.getType();
+        this.sumPrice = orderCreatedEvent.getSumPrice();
     }
 
     @CommandHandler

@@ -37,6 +37,7 @@ public class OrderService {
                 .customerId(model.getCustomerId())
                 .paymentId(model.getPaymentId())
                 .type(model.getType())
+                .sumPrice(model.getSumPrice())
                 .date(new Date())
                 .build();
         String result= "";

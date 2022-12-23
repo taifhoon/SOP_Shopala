@@ -1,27 +1,27 @@
 <template>
 
     <body class='homepage'>
-        <div class="columns">
-            <div class="column is-4">  
-                <p class="title is-4 has-text-left ml-6">Welcome Back, Louis!</p>
+            <div class="columns">
+                <div class="column is-4">  
+                    <p class="title is-4 has-text-left ml-6">Welcome Back, {{sellerid.name}} !</p>
+                </div>
             </div>
-        </div>
         <div class="columns">
             <div class="column is-10 is-offset-1">
                 <div class="box has-background-dark">
-                    <p class="has-text-left has-text-light">...หลุยส์ตรงนี้ควรเขียนอะไรดีหรอ ^.^</p> <br><br><br>
+                    <p class="has-text-left has-text-light">Seller Centre</p> <br><br><br>
                     <div class="columns">
                         <div class="column is-2 is-offset-2">
                            <div class="box is-clickable" @click="buylink()">
-                                <p class="title is-4 pb-2">+1</p>
+                                <p class="title is-4 pb-2">+{{ orders.length }}</p>
                                 <p class="subtitle is-5">คำสั่งซื้อ</p>
 
                            </div>
                         </div>
-                        <div class="column is-2 is-offset-1">
+                        <div class="column is-2 is-offset-1" >
                             <div class="box is-clickable" @click="allproductlink()">
-                                <p class="title is-4 pb-2">+ {{ listProducts.length }}</p>
-                                <p class="subtitle is-5">สิ้นค้าทั้งหมด</p>
+                                <p class="title is-4 pb-2">+{{ listProducts.length }}</p>
+                                <p class="subtitle is-5">สินค้าทั้งหมด</p>
                             </div>
                         </div>
                         <div class="column is-2 is-offset-1">
@@ -116,19 +116,35 @@ export default {
         return {
             listProducts: [],
             search: "",
+            orders:[],
+            sellerOrders:[],
+            sellerid:[]
         };
     },
     mounted() {
         window.scrollTo(0, 0)
         // this.getMovie();
         this.getProducts()
+        this.getseller()
     },
     methods: {
-        getProducts() {
-            axios
+        async getProducts() {
+            this.sellerid = localStorage.getItem("sellerId")
+            await axios
                 .get(`http://localhost:8001/getProducts`)
                 .then((res) => {
-                    this.listProducts = res.data
+                    this.listProducts = res.data.filter(item => {
+                        return item.sellerId == localStorage.getItem("sellerId")
+                    })
+                    console.log(this.listProducts)
+                })
+                .catch((error) => {
+                    alert(error.response.data.message)
+                });
+            await axios
+                .get(`http://localhost:8002/getOrders`)
+                .then((res) => {
+                    this.orders = res.data
                 })
                 .catch((error) => {
                     alert(error.response.data.message)
@@ -143,6 +159,18 @@ export default {
         addproductlink () {
             this.$router.push("/addproduct");
         },
+        getseller() {
+            axios
+                .get(`http://localhost:8004/getSellers`)
+                .then((res) => {
+                    this.sellerid = res.data.filter(item => {
+                    return item._id == localStorage.getItem("sellerId")
+          })[0]
+                })
+                .catch((error) => {
+                    alert(error.response.data.message)
+                });
+        }
     },
     
     // methods: {
